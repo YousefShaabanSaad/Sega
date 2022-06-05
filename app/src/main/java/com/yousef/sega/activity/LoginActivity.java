@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.yousef.mytoast.MyToast;
 import com.yousef.sega.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -14,6 +13,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        MyToast.setToast(this, "Hello, Yousef shaaban saad  mohamed", MyToast.LONG, R.drawable.success,getResources().getColor(R.color.green));
+       // MyToast.setToast(this, "Hello, Yousef shaaban saad  mohamed", MyToast.LONG, R.drawable.success,getResources().getColor(R.color.green));
     }
 }

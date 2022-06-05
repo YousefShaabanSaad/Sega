@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="appColor">#4A148C</color>
+    <color name="appColor2">#6409D5</color>
     <color name="hint">#afafaf</color>
     <color name="red">#DA0707</color>
     <color name="green">#1AEA0C</color>
