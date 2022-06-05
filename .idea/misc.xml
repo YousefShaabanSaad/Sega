@@ -7,16 +7,23 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/like.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/logo.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/logo2.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/side_nav_bar.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
-        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_photo.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_play.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_registration.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_verification.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/app_bar_home.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/content_home.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/nav_header_home.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/menu/home.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/mipmap-anydpi-v26/ic_logo_round.xml" value="0.1" />
       </map>
     </option>
   </component>

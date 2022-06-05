@@ -5,9 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/background"
+    android:gravity="center_horizontal"
     tools:context=".activity.LoginActivity">
+
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:src="@drawable/logo"
+        android:contentDescription="@string/app_name" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
