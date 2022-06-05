@@ -7,8 +7,9 @@
     <string name="signUp">Sign Up</string>
     <string name="name">Name</string>
     <string name="confirmPassword">Confirm Password</string>
-    <string name="verify">Verify</string>
-    <string name="resend">Resend?</string>
+    <string name="verify">A verification message has been sent to this e-mail</string>
+    <string name="verify2"> and contains a link, Did you click on the link?</string>
+    <string name="resend">Resend</string>
     <string name="Profile">Profile</string>
     <string name="newGameWithPC">New game with computer</string>
     <string name="newGameWithFriendOffline">New game with friend offline</string>
@@ -40,4 +41,13 @@
     <string name="emailError">Your email is incorrect</string>
     <string name="passwordError">Your password is incorrect</string>
     <string name="passwordErrorShort">The password must be 6 or more characters</string>
+    <string name="emailErrorForgetPassword">Enter your email, then click Forget password button</string>
+    <string name="checkEmail">Check your email now !</string>
+    <string name="nameErrorEmpty">Enter your name</string>
+    <string name="notEqualPassword">Two password not equal</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="questionResend">Not received code?</string>
+    <string name="goToEmail">Open the email and click on the link and then come back here !</string>
+    <string name="signUpLoading">Sign Up ...</string>
 </resources>

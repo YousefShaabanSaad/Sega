@@ -3,7 +3,7 @@ package com.yousef.sega.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    String Id, Profile, Name, Phone, Password, Status;
+    String Id, Profile, Name, Email, Password, Status;
 
     public String getId() {
         return Id;
@@ -29,12 +29,12 @@ public class User implements Serializable {
         Name = name;
     }
 
-    public String getPhone() {
-        return Phone;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setPhone(String phone) {
-        Phone = phone;
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public String getPassword() {

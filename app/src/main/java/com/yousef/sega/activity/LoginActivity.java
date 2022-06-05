@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.yousef.sega.LoginInterface;
+import com.yousef.sega.listener.LoginInterface;
 import com.yousef.sega.R;
 import com.yousef.sega.database.Repository;
 import com.yousef.sega.databinding.ActivityLoginBinding;
@@ -28,12 +26,18 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
             public void onClick(View view) {
                 String email = binding.email.getText().toString();
                 String password = binding.Password.getText().toString();
-                if(email.equals(""))
+                if(email.equals("")) {
                     binding.email.setError(getString(R.string.emailErrorEmpty));
-                else if(password.equals(""))
+                    binding.email.requestFocus();
+                }
+                else if(password.equals("")) {
                     binding.Password.setError(getString(R.string.passwordErrorEmpty));
-                else if(password.length()<6)
+                    binding.Password.requestFocus();
+                }
+                else if(password.length()<6) {
                     binding.Password.setError(getString(R.string.passwordErrorShort));
+                    binding.Password.requestFocus();
+                }
                 else {
                     email +="@gmail.com";
                     repository.signIn(email, password, LoginActivity.this);
@@ -45,8 +49,13 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
         binding.forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), RegistrationActivity.class);
-                startActivity(intent);
+                String email = binding.email.getText().toString();
+                if(email.equals("")) {
+                    binding.email.setError(getString(R.string.emailErrorForgetPassword));
+                    binding.email.requestFocus();
+                }
+                else
+                    repository.resetPassword(email, LoginActivity.this);
             }
         });
 
@@ -68,11 +77,25 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
 
     @Override
     public void onFailure(Exception e) {
-        if(e.getMessage().contains("There is no user"))
+        if(e.getMessage().contains("There is no user")) {
             binding.email.setError(getString(R.string.emailError));
-        else if(e.getMessage().contains("The password is invalid"))
+            binding.email.requestFocus();
+        }
+        else if(e.getMessage().contains("The password is invalid")) {
             binding.Password.setError(getString(R.string.passwordError));
+            binding.Password.requestFocus();
+        }
         else
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onSuccessReset() {
+        Toast.makeText(this, getString(R.string.checkEmail), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFailureReset(Exception e) {
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
 }

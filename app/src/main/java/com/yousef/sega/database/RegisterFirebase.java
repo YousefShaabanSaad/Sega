@@ -1,6 +1,10 @@
 package com.yousef.sega.database;
 
-import android.content.Intent;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.Uri;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -9,9 +13,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.yousef.sega.LoginInterface;
+import com.google.firebase.storage.UploadTask;
+import com.yousef.sega.R;
+import com.yousef.sega.listener.LoginInterface;
+import com.yousef.sega.listener.RegisterInterface;
+import com.yousef.sega.model.Constants;
+import com.yousef.sega.model.User;
 
 
 public class RegisterFirebase {
@@ -45,102 +56,106 @@ public class RegisterFirebase {
         });
     }
 
-//    public void resetPassword(String email){
-//        firebaseAuth.sendPasswordResetEmail(email)
-//                .addOnSuccessListener(unused ->
-//                        TastyToast.makeText(context,context.getString(R.string.checkEmail),TastyToast.LENGTH_LONG,TastyToast.SUCCESS).show())
-//                .addOnFailureListener(e ->
-//                        TastyToast.makeText(context,context.getString(R.string.failReset),TastyToast.LENGTH_LONG,TastyToast.SUCCESS).show());
-//    }*/
-
-
-
-    /*public void savePatient(Patient patient, SaveDataListener saveDataListener) {
-        Dialog dialog=new Dialog(context);
-        dialog.setContentView(R.layout.loading);
-        TextView nowLoading = dialog.findViewById(R.id.nowLoading);
-        ProgressBar progressBarLoading = dialog.findViewById(R.id.progressBarLoading);
-        dialog.show();
-        patient.setId(getUser().getUid());
-
-        firebaseStorage.getReference(Constants.PATIENTS).child(patient.getId())
-                .child(patient.getId() + ".png")
-                .putFile(Uri.parse(patient.getProfile()))
-                .addOnSuccessListener(taskSnapshot -> {
-                    patient.setProfile(Objects.requireNonNull(taskSnapshot.getUploadSessionUri()).toString());
-                    savePatientFirestore(dialog, patient, saveDataListener, taskSnapshot.getUploadSessionUri());
-                }).addOnFailureListener(e ->
-                saveDataListener.failSavePatient()
-        ).addOnProgressListener(snapshot -> {
-            double progress = (float)(100*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-            String progress1 = progress+"%";
-            nowLoading.setText( progress1 );
-            progressBarLoading.setProgress((int)progress);
+    public void resetPassword(String email, LoginInterface loginInterface){
+        firebaseAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                loginInterface.onSuccessReset();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loginInterface.onFailureReset(e);
+            }
         });
     }
 
-    private void savePatientFirestore(Dialog dialog, Patient patient, SaveDataListener saveDataListener, Uri uri){
-        firebaseFirestore.collection(Constants.PATIENTS).add(patient)
-                .addOnSuccessListener(
-                        documentReference -> {
-                            saveDataListener.successSavePatient();
-                            updateUser(dialog, patient.getName(), uri);
-                        })
-                .addOnFailureListener(e -> {
-                    deleteImageLevel(Constants.PATIENTS,patient.getId());
-                    saveDataListener.failSavePatient();
-                    dialog.dismiss();
-                });
-    }
 
-    public void saveHospital(Hospital hospital, SaveDataListener saveDataListener) {
-        Dialog dialog=new Dialog(context);
-        dialog.setContentView(R.layout.loading);
-        TextView nowLoading = dialog.findViewById(R.id.nowLoading);
-        ProgressBar progressBarLoading = dialog.findViewById(R.id.progressBarLoading);
-        dialog.show();
-        hospital.setId(getUser().getUid());
-
-        firebaseStorage.getReference(Constants.REQUEST_HOSPITALS).child(hospital.getId()).child(hospital.getId() + ".jpg")
-                .putFile(Uri.parse(hospital.getProfile()))
-                .addOnSuccessListener(taskSnapshot -> {
-                    hospital.setProfile(Objects.requireNonNull(taskSnapshot.getUploadSessionUri()).toString());
-                    saveHospitalFirestore(dialog, hospital, saveDataListener, taskSnapshot.getUploadSessionUri());
-                }).addOnFailureListener(e -> saveDataListener.failSaveHospital()
-        ).addOnProgressListener(snapshot -> {
-            double progress = (float)(100*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-            String progress1 = progress+"%";
-            nowLoading.setText( progress1 );
-            progressBarLoading.setProgress((int)progress);
+    public void createEmail(String email,String password, Context context){
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                sendLink(context);
+            }
         });
     }
 
-    private void saveHospitalFirestore(Dialog dialog, Hospital hospital, SaveDataListener saveDataListener, Uri uri){
-        firebaseFirestore.collection(Constants.REQUEST_HOSPITALS).add(hospital)
-                .addOnSuccessListener(
-                        documentReference -> {
-                            saveDataListener.successSaveHospital();
-                            updateUser(dialog, hospital.getName(), uri);
-                        })
-                .addOnFailureListener(e -> {
-                    deleteImageLevel(Constants.REQUEST_HOSPITALS,hospital.getId());
-                    saveDataListener.failSaveHospital();
-                    dialog.dismiss();
-                });
+    private void sendLink(Context context) {
+        getUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(context, context.getString(R.string.checkEmail), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    private void updateUser(Dialog dialog, String name, Uri uri){
+    public boolean isVerify(){
+        return getUser().isEmailVerified();
+    }
+
+    public void signUp(User user , ProgressDialog dialog, RegisterInterface registerInterface) {
+        user.setId(getUser().getUid());
+        firebaseStorage.getReference(Constants.USERS).child(Constants.PROFILES).child(user.getId())
+                .child(user.getId() + ".png")
+                .putFile(Uri.parse(user.getProfile())).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                user.setProfile(taskSnapshot.getUploadSessionUri().toString());
+                savePatientFirestore(dialog, user, registerInterface);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                registerInterface.onFailure(e);
+            }
+        });
+    }
+
+
+    private void savePatientFirestore(Dialog dialog, User user, RegisterInterface registerInterface){
+        firebaseFirestore.collection(Constants.USER+"/"+user.getId()).add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        updateUser(dialog, user, registerInterface);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                deleteImageLevel(Constants.USER, Constants.PROFILES, user.getId());
+                registerInterface.onFailure(e);
+            }
+        });
+    }
+
+    private void updateUser(Dialog dialog,User user, RegisterInterface registerInterface){
         UserProfileChangeRequest userProfileChangeRequest=new UserProfileChangeRequest.Builder()
-                .setDisplayName(name)
-                .setPhotoUri(uri).build();
+                .setDisplayName(user.getName())
+                .setPhotoUri( Uri.parse(user.getProfile())).build();
         getUser().updateProfile(userProfileChangeRequest)
-                .addOnSuccessListener(unused -> dialog.dismiss())
-                .addOnFailureListener(e -> dialog.dismiss());
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        registerInterface.onSuccess();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                registerInterface.onFailure(e);
+            }
+        });
     }
 
-    private void deleteImageLevel(String child, String child2){
-        firebaseStorage.getReference(child).child(child2).delete();
+    private void deleteImageLevel(String child, String child2, String child3){
+        firebaseStorage.getReference(child).child(child2).child(child3).delete();
     }
+
+    /*
+
+
+
+
+
 
     public void startPhoneNumberVerification(String phoneNumber, Activity activity, ReadMessage readMessage) {
         PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks =
@@ -188,25 +203,7 @@ public class RegisterFirebase {
         getUser().delete();
     }
 
-    public void createEmail(String email,String password){
-        firebaseAuth.createUserWithEmailAndPassword(email,password)
-                .addOnSuccessListener(authResult ->
-                        sendLink())
-                .addOnFailureListener(e ->
-                        TastyToast.makeText(context,context.getString(R.string.emailErrorVerification),TastyToast.LENGTH_LONG,TastyToast.ERROR));
-    }
 
-    private void sendLink(){
-        getUser().sendEmailVerification()
-                .addOnSuccessListener(unused ->
-                        TastyToast.makeText(context, context.getString(R.string.checkEmail), TastyToast.LENGTH_LONG,TastyToast.ERROR))
-                .addOnFailureListener(e ->
-                        TastyToast.makeText(context, context.getString(R.string.emailErrorVerification), TastyToast.LENGTH_LONG,TastyToast.ERROR));
-    }
-
-    public boolean isVerify(){
-        return getUser().isEmailVerified();
-    }
 
 
      */

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.yousef.sega.R;
 import com.yousef.sega.database.Repository;
 
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //FirebaseAuth.getInstance().sendPasswordResetEmail("yousefelgen141@gmail.com");
 
         new Thread(){
             @Override

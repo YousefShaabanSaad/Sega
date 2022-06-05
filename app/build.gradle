@@ -54,4 +54,5 @@ dependencies {
 
     // إضافة عشان أعمل الصورة الدائريه
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
