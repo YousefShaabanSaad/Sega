@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "367520914390",
+    "project_id": "sega-42",
+    "storage_bucket": "sega-42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367520914390:android:888b45b7f445e64ff2e277",
+        "android_client_info": {
+          "package_name": "com.yousef.sega"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367520914390-cvrqoa48bu8nms86grv4ep5d9devglam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABIvgQLtFIExj8r7uIS7bstD_Z6OETHXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367520914390-cvrqoa48bu8nms86grv4ep5d9devglam.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
