@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Sega</string>
+    <string name="Phone">Phone</string>
+    <string name="Password">Password</string>
+    <string name="login">Sign In</string>
+    <string name="forgetPassword">Forget Password?</string>
+    <string name="signUp">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="verify">Verify</string>
+    <string name="resend">Resend?</string>
+    <string name="Profile">Profile</string>
+    <string name="newGameWithPC">New game with computer</string>
+    <string name="newGameWithFriendOffline">New game with friend offline</string>
+    <string name="newGameWithFriendOnline">New game with friend online</string>
+    <string name="welcome">Welcome to Sega</string>
+    <string name="chat">Chats</string>
+    <string name="favorite">Favorite</string>
+    <string name="newGame">New game</string>
+    <string name="back">Back</string>
+    <string name="congratulations">Congratulations,</string>
+    <string name="hardLuck">Hard luck,</string>
+    <string name="participants">Participants</string>
+    <string name="next">Next</string>
 </resources>
