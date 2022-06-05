@@ -1,8 +1,10 @@
-package com.yousef.sega;
+package com.yousef.sega.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.yousef.sega.R;
 
 public class MainActivity extends AppCompatActivity {
 
