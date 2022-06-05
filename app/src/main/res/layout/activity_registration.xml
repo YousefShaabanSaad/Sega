@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:layoutDirection="ltr"
     tools:context=".activity.RegistrationActivity">
 
     <ImageView
@@ -55,16 +56,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_25sdp"
-                android:hint="@string/Phone"
+                android:hint="@string/Email"
                 app:boxStrokeWidth="@dimen/_1sdp"
-                app:suffixText="+2"
+                app:suffixText="@gmail.com"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:boxBackgroundColor="@color/hint"
                 app:errorIconDrawable="@drawable/error"
-                app:startIconDrawable="@drawable/phone">
+                app:startIconDrawable="@drawable/email">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone"
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textEmailAddress"

@@ -1,9 +1,17 @@
 package com.yousef.sega.database;
 
+import android.content.Intent;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.yousef.sega.LoginInterface;
 
 
 public class RegisterFirebase {
@@ -18,14 +26,24 @@ public class RegisterFirebase {
         firebaseStorage = FirebaseStorage.getInstance();
     }
 
-//    public void loginIn(String email, String password){
-//        firebaseAuth.signInWithEmailAndPassword(email,password)
-//                .addOnSuccessListener(authResult ->{
-//                    TastyT.makeText(context,context.getString(R.string.failSignIn),TastyToast.LENGTH_LONG,TastyToast.ERROR).show());
-//                        }
-//                .addOnFailureListener(e ->
-//                        TastyToast.makeText(context,context.getString(R.string.failSignIn),TastyToast.LENGTH_LONG,TastyToast.ERROR).show());
-//    }
+    public FirebaseUser getUser(){
+        return firebaseAuth.getCurrentUser();
+    }
+
+    public void signIn(String email, String password, LoginInterface loginInterface) {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                loginInterface.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loginInterface.onFailure(e);
+            }
+        });
+    }
 
 //    public void resetPassword(String email){
 //        firebaseAuth.sendPasswordResetEmail(email)
@@ -35,9 +53,7 @@ public class RegisterFirebase {
 //                        TastyToast.makeText(context,context.getString(R.string.failReset),TastyToast.LENGTH_LONG,TastyToast.SUCCESS).show());
 //    }*/
 
-    public FirebaseUser getUser(){
-        return firebaseAuth.getCurrentUser();
-    }
+
 
     /*public void savePatient(Patient patient, SaveDataListener saveDataListener) {
         Dialog dialog=new Dialog(context);
