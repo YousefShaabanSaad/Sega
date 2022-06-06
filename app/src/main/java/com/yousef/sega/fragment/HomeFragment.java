@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.yousef.sega.R;
 import com.yousef.sega.activity.PlayWithFriendOnlineActivity;
@@ -13,7 +14,7 @@ import com.yousef.sega.activity.PlayWithFriendOfflineActivity;
 import com.yousef.sega.activity.PlayWithPCActivity;
 import com.yousef.sega.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment{
 
     private FragmentHomeBinding binding;
 
@@ -23,28 +24,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.newGameWithPC)
-            newGameWithPC();
-        else  if(view.getId() == R.id.newGameWithFriendOffline)
-            newGameWithFriendOffline();
-        else  if(view.getId() == R.id.newGameWithFriendOffline)
-            newGameWithFriendOnline();
-    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    private void newGameWithPC() {
-        Intent intent = new Intent(requireContext(), PlayWithPCActivity.class);
-        startActivity(intent);
-    }
+        binding.newGameWithPC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireContext(), PlayWithPCActivity.class);
+                startActivity(intent);
+            }
+        });
 
-    private void newGameWithFriendOffline() {
-        Intent intent = new Intent(requireContext(), PlayWithFriendOfflineActivity.class);
-        startActivity(intent);
-    }
+        binding.newGameWithFriendOffline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireContext(), PlayWithFriendOfflineActivity.class);
+                startActivity(intent);
+            }
+        });
 
-    private void newGameWithFriendOnline() {
-        Intent intent = new Intent(requireContext(), PlayWithFriendOnlineActivity.class);
-        startActivity(intent);
+        binding.newGameWithFriendOnline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireContext(), PlayWithFriendOnlineActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

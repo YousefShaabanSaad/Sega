@@ -61,9 +61,9 @@ public class HomeActivity extends AppCompatActivity {
 
         Repository repository = new Repository();
 
-        circleImageView.setImageURI(repository.getUser().getPhotoUrl());
-        name.setText(repository.getUser().getDisplayName());
-        email.setText(repository.getUser().getEmail());
+//        circleImageView.setImageURI(repository.getUser().getPhotoUrl());
+//        name.setText(repository.getUser().getDisplayName());
+//        email.setText(repository.getUser().getEmail());
 
         //repository.setStatus(Constants.PATIENT, Constants.ONLINE);
     }

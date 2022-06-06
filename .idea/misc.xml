@@ -6,16 +6,27 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/ic_menu_camera.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/item_bg.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/item_bg2.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/like.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/logo.xml" value="0.1" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/logo2.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/n.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/player1.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/player2.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/profile.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/profile1.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/profileAppColor.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/rowbg.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/side_nav_bar.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/y.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_photo.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_play.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_play_with_friend_offline.xml" value="0.22" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_play_with_friend_online.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_play_with_pcactivity.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_registration.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_verification.xml" value="0.20416666666666666" />
