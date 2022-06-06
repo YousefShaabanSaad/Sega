@@ -5,179 +5,167 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.PlayWithFriendOnlineActivity">
+    android:gravity="center_horizontal"
+    tools:context=".activity.PlayWithFriendOfflineActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/myProfile"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginHorizontal="@dimen/_25sdp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/friendProfile">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/profile"
-            app:tint="@color/hint"
-            android:contentDescription="@string/app_name" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/myProfile"
-        app:layout_constraintEnd_toStartOf="@id/friendProfile"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/card"
-        tools:text="0-0"
-        android:textStyle="bold"
-        android:textColor="@color/appColor"
-        android:textSize="@dimen/_20ssp"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/friendProfile"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginHorizontal="@dimen/_25sdp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/myProfile">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/profile"
-            app:tint="@color/hint"
-            android:contentDescription="@string/app_name" />
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card"
+    <LinearLayout
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_25sdp"
-        android:layout_marginTop="@dimen/_25sdp"
-        app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/row_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myProfile">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:background="@drawable/item_bg2"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/y" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0-0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:background="@drawable/item_bg"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/n" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:background="@drawable/row_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear1">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/_10sdp">
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num1"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toStartOf="@+id/Num2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/y" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num2"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toStartOf="@+id/Num3"
-                app:layout_constraintStart_toEndOf="@+id/Num1"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num3"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/Num2"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/y" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num4"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toStartOf="@+id/Num5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Num1" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/y" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num5"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toStartOf="@+id/Num6"
-                app:layout_constraintStart_toEndOf="@+id/Num4"
-                app:layout_constraintTop_toBottomOf="@+id/Num2" />
+        </LinearLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num6"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/Num5"
-                app:layout_constraintTop_toBottomOf="@+id/Num3" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num7"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toStartOf="@+id/Num8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Num4" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num8"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toStartOf="@+id/Num9"
-                app:layout_constraintStart_toEndOf="@+id/Num7"
-                app:layout_constraintTop_toBottomOf="@+id/Num5" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Num9"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:src="@color/hint"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/Num8"
-                app:layout_constraintTop_toBottomOf="@+id/Num6" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/n" />
+
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/n" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/item_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/n" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
     <androidx.cardview.widget.CardView
@@ -191,7 +179,7 @@
         android:layout_marginStart="@dimen/_40sdp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@+id/card"
+        app:layout_constraintTop_toBottomOf="@+id/linear2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/like">
 
@@ -215,7 +203,7 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@+id/card"
+        app:layout_constraintTop_toBottomOf="@+id/linear2"
         app:layout_constraintStart_toEndOf="@+id/love"
         app:layout_constraintEnd_toStartOf="@+id/dislike">
 
@@ -240,7 +228,7 @@
         android:layout_marginEnd="@dimen/_40sdp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@+id/card"
+        app:layout_constraintTop_toBottomOf="@+id/linear2"
         app:layout_constraintStart_toEndOf="@+id/like"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -254,6 +242,7 @@
 
     </androidx.cardview.widget.CardView>
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -265,3 +254,4 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
