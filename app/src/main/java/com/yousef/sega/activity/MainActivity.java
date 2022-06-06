@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         if(repository.getUser() != null){
             intent.setClass(this, HomeActivity.class);
         }else
-            intent.setClass(this, PhotoActivity.class);
+            intent.setClass(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

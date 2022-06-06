@@ -1,14 +1,10 @@
 package com.yousef.sega.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
-
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.yousef.sega.R;
 import com.yousef.sega.databinding.ActivityHomeBinding;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,13 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        com.yousef.sega.databinding.ActivityHomeBinding binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarHome.toolbar);
 //        binding.appBarHomera.fab.setOnClickListener(new View.OnClickListener() {

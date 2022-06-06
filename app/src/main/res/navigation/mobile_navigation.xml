@@ -10,4 +10,10 @@
         android:name="com.yousef.sega.fragment.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_friends"
+        android:name="com.yousef.sega.fragment.FriendsFragment"
+        android:label="@string/menu_friends"
+        tools:layout="@layout/fragment_friends" />
 </navigation>
