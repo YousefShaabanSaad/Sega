@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yousef.sega">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,19 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sega">
         <activity
-            android:name=".activity.PlayActivity"
+            android:name=".activity.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PlayWithFriendOfflineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PlayWithPCActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PlayWithFriendOnlineActivity"
             android:exported="true"
             android:parentActivityName=".activity.HomeActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="https" />
                 <data android:host="sega.com" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.HomeActivity"
             android:exported="false"
@@ -34,23 +43,22 @@
             android:name=".activity.PhotoActivity"
             android:exported="false"
             android:label="@string/signUp"
-            android:parentActivityName=".activity.RegistrationActivity"/>
+            android:parentActivityName=".activity.RegistrationActivity" />
         <activity
             android:name=".activity.VerificationActivity"
             android:exported="false"
             android:label="@string/verification"
-            android:parentActivityName=".activity.RegistrationActivity"/>
+            android:parentActivityName=".activity.RegistrationActivity" />
         <activity
             android:name=".activity.RegistrationActivity"
             android:exported="false"
             android:label="@string/signUp"
-            android:parentActivityName=".activity.LoginActivity"/>
+            android:parentActivityName=".activity.LoginActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:exported="false"
             android:label="@string/login"
-            android:parentActivityName=".activity.MainActivity"/>
-
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"

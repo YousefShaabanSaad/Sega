@@ -49,5 +49,6 @@
     <string name="signUpLoading">Sign Up ...</string>
     <string name="noPermission">No permission</string>
     <string name="signOut">Sign Out</string>
+    <string name="signOutLoading">Sign Out ...</string>
 
 </resources>

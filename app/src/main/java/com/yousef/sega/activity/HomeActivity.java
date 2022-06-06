@@ -1,10 +1,21 @@
 package com.yousef.sega.activity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import com.google.android.material.navigation.NavigationView;
 import com.yousef.sega.R;
+import com.yousef.sega.database.Repository;
 import com.yousef.sega.databinding.ActivityHomeBinding;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -12,24 +23,21 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.yousef.sega.databinding.ActivityHomeBinding binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarHome.toolbar);
-//        binding.appBarHomera.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -41,7 +49,33 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View v = binding.navView.getHeaderView(0);
+        CircleImageView circleImageView=v.findViewById(R.id.myProfile);
+        TextView name = v.findViewById(R.id.name);
+        TextView email = v.findViewById(R.id.email);
+        circleImageView.setOnClickListener(v1 -> {
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        Repository repository = new Repository();
+
+        circleImageView.setImageURI(repository.getUser().getPhotoUrl());
+        name.setText(repository.getUser().getDisplayName());
+        email.setText(repository.getUser().getEmail());
+
+        //repository.setStatus(Constants.PATIENT, Constants.ONLINE);
     }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,9 +85,37 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.signOut)
+            exitDialog();
+        return super.onOptionsItemSelected(item);
     }
+
+
+
+    @Override
+    public void onBackPressed() {
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START))
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+    }
+
+
+    private void exitDialog() {
+        ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+        progressDialog.setTitle(getString(R.string.signOut));
+        progressDialog.setTitle(getString(R.string.signOutLoading));
+        progressDialog.create();
+        progressDialog.show();
+        //repository.signOut(progressDialog);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //repository.setStatus(Constants.PATIENT, Constants.OFFLINE);
+    }
+
+
 }

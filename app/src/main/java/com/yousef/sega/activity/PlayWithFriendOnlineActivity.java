@@ -6,13 +6,16 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.yousef.sega.R;
+import com.yousef.sega.databinding.ActivityPlayWithFriendOnlineBinding;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayWithFriendOnlineActivity extends AppCompatActivity {
 
+    private ActivityPlayWithFriendOnlineBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play);
+        binding = ActivityPlayWithFriendOnlineBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         Uri uri = getIntent().getData();
         if(uri != null){
