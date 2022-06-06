@@ -7,4 +7,9 @@
     <color name="hint">#afafaf</color>
     <color name="red">#DA0707</color>
     <color name="green">#1AEA0C</color>
+
+    <!-- Here you can add color of your choice  -->
+    <color name="ucrop_color_toolbar">#4A148C</color>
+    <color name="ucrop_color_statusbar">#4A148C</color>
+    <color name="ucrop_color_widget_active">#4A148C</color>
 </resources>

@@ -1,15 +1,23 @@
 package com.yousef.sega.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.yousef.sega.R;
 import com.yousef.sega.database.Repository;
 import com.yousef.sega.databinding.ActivityPhotoBinding;
@@ -21,6 +29,8 @@ public class PhotoActivity extends AppCompatActivity implements RegisterInterfac
 
     private ActivityPhotoBinding binding;
     private ProgressDialog dialog;
+    private ActivityResultLauncher<String> activityResultLauncher;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,27 +38,26 @@ public class PhotoActivity extends AppCompatActivity implements RegisterInterfac
         binding = ActivityPhotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-       User user = (User) getIntent().getExtras().getSerializable(Constants.USER);
+        user = (User) getIntent().getExtras().getSerializable(Constants.USER);
 
-        binding.profile.setOnClickListener(new View.OnClickListener() {
+        activityResultLauncher=registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                result -> {
+                    if(result){
+                        ImagePicker.with(this)
+                                .cropSquare()
+                                .start();
+                    }
+                    else
+                        Toast.makeText(getApplicationContext(),getString(R.string.noPermission), Toast.LENGTH_LONG).show();
+                }
+        );
+
+
+        binding.pickProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri picUri = null;
-                Intent cropIntent = new Intent("com.android.camera.action.CROP");
-                // indicate image type and Uri
-                cropIntent.setDataAndType(picUri, "image/*");
-                // set crop properties here
-                cropIntent.putExtra("crop", true);
-                // indicate aspect of desired crop
-                cropIntent.putExtra("aspectX", 1);
-                cropIntent.putExtra("aspectY", 1);
-                // indicate output X and Y
-                cropIntent.putExtra("outputX", 128);
-                cropIntent.putExtra("outputY", 128);
-                // retrieve data on return
-                cropIntent.putExtra("return-data", true);
-                // start the activity - we handle returning in onActivityResult
-                startActivityForResult(cropIntent, 1);
+                activityResultLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
         });
 
@@ -65,6 +74,17 @@ public class PhotoActivity extends AppCompatActivity implements RegisterInterfac
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            user.setProfile(data.getData().toString());
+            binding.pickProfile.setImageURI(data.getData());
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

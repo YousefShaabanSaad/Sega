@@ -50,4 +50,5 @@
     <string name="questionResend">Not received code?</string>
     <string name="goToEmail">Open the email and click on the link and then come back here !</string>
     <string name="signUpLoading">Sign Up ...</string>
+    <string name="noPermission">No permission</string>
 </resources>

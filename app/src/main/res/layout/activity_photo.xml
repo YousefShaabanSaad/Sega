@@ -16,19 +16,19 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_250sdp"
         android:layout_marginHorizontal="@dimen/_25sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         app:cardCornerRadius="@dimen/_15sdp"
         app:cardElevation="@dimen/_20sdp">
 
         <ImageView
-            android:id="@+id/profile"
+            android:id="@+id/pickProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/profile"
-            app:tint="@color/hint"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/Profile" />
     </androidx.cardview.widget.CardView>
 
