@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_140sdp"
+    android:layout_height="@dimen/_150sdp"
     android:background="@drawable/side_nav_bar"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/_14sdp"
+    android:paddingTop="@dimen/_20sdp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:gravity="center">
 
@@ -22,7 +23,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/app_name"
+        android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="@dimen/_15ssp"
         android:maxLines="1"
@@ -32,7 +33,7 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/Phone"
+        android:text="yousef@gamil.com"
         android:textColor="@color/white"
         android:textSize="@dimen/_12ssp"
         android:maxLines="1" />

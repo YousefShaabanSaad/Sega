@@ -11,7 +11,7 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/logo2.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/profile.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/side_nav_bar.xml" value="0.198" />
-        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_photo.xml" value="0.20416666666666666" />
@@ -20,8 +20,11 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_verification.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/app_bar_home.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/content_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_about.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_friend.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_friends.xml" value="0.19010416666666666" />
-        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_settings.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/nav_header_home.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
