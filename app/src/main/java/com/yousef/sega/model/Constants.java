@@ -9,4 +9,6 @@ public class Constants {
 
     public static final String ME = "Me";
     public static final String PC = "Pc";
+    public static final String Y = "Y";
+    public static final String N = "N";
 }

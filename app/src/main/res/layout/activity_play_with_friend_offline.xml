@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".activity.PlayWithFriendOfflineActivity">
+    tools:context=".activity.PlayWithPCActivity">
 
     <ImageView
         android:layout_width="@dimen/_150sdp"
@@ -23,6 +22,7 @@
         android:layout_marginHorizontal="@dimen/_25sdp">
 
         <ImageView
+            android:id="@+id/y"
             android:layout_width="0dp"
             android:layout_height="@dimen/_70sdp"
             android:layout_weight="1"
@@ -36,13 +36,14 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_70sdp"
             android:layout_weight="1"
-            android:text="0-0"
+            android:text="@string/zero"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="@dimen/_20ssp"/>
 
         <ImageView
+            android:id="@+id/n"
             android:layout_width="0dp"
             android:layout_height="@dimen/_70sdp"
             android:layout_weight="1"
@@ -68,6 +69,7 @@
             android:layout_marginVertical="@dimen/_10sdp">
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num1"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -78,6 +80,7 @@
 
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num2"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -86,6 +89,7 @@
                 android:background="@drawable/item_bg" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num3"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -102,6 +106,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num4"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -111,6 +116,7 @@
 
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num5"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -118,6 +124,7 @@
                 android:background="@drawable/item_bg" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num6"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -134,6 +141,7 @@
             android:layout_marginVertical="@dimen/_10sdp">
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num7"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -144,6 +152,7 @@
 
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num8"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -152,6 +161,7 @@
                 android:background="@drawable/item_bg" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num9"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"

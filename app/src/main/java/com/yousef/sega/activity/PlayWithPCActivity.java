@@ -19,7 +19,7 @@ public class PlayWithPCActivity extends AppCompatActivity {
     private String player;
     private String[] players;
     private boolean isClick;
-    private int  moveMe, movePc, scoreMe, scorePc;
+    private int  move[], scoreMe, scorePc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,8 @@ public class PlayWithPCActivity extends AppCompatActivity {
         player = Constants.ME;
         players = new String[]{Constants.ME, Constants.ME, Constants.ME, "", "", "", Constants.PC, Constants.PC, Constants.PC};
         isClick = false;
-        moveMe=0;
-        movePc=0;
+
+        move= new int[10];
         scoreMe=0;
         scorePc=0;
 
@@ -116,6 +116,12 @@ public class PlayWithPCActivity extends AppCompatActivity {
                 setImage(numOfButton, 0);
                 isClick = true;
                 players[numOfButton - 1]="";
+                if(numOfButton==1)
+                    move[1]=1;
+                else if(numOfButton==2)
+                    move[2]=2;
+                else if(numOfButton==3)
+                    move[3]=3;
             }
         }
         else {
@@ -173,6 +179,13 @@ public class PlayWithPCActivity extends AppCompatActivity {
         setImage(pc[val]+1, 0);
         players[pc[val]]="";
 
+        if(pc[val]+1==7)
+            move[7]=7;
+        else if(pc[val]+1==8)
+            move[8]=8;
+        else if(pc[val]+1==9)
+            move[9]=9;
+
         Random random2=new Random();
         int val2=random2.nextInt(3);
         setImage(empty[val2]+1, R.drawable.pc);
@@ -186,7 +199,7 @@ public class PlayWithPCActivity extends AppCompatActivity {
 
 
     private void checkWin(){
-        if(players[0].equals(Constants.ME) && players[1].equals(Constants.ME) && players[2].equals(Constants.ME) && moveMe==3)
+        if(players[0].equals(Constants.ME) && players[1].equals(Constants.ME) && players[2].equals(Constants.ME) && move[1]==1 && move[2]==2 && move[3]==3)
             win(Constants.ME, 0, 1, 2);
         else if(players[3].equals(Constants.ME) && players[4].equals(Constants.ME) && players[5].equals(Constants.ME) )
             win(Constants.ME, 3, 4, 5);
@@ -208,7 +221,7 @@ public class PlayWithPCActivity extends AppCompatActivity {
             win(Constants.PC, 0, 1, 2);
         else if(players[3].equals(Constants.PC) && players[4].equals(Constants.PC) && players[5].equals(Constants.PC) )
             win(Constants.PC, 3, 4, 5);
-        else if(players[6].equals(Constants.PC) && players[7].equals(Constants.PC) && players[8].equals(Constants.PC) && movePc==3)
+        else if(players[6].equals(Constants.PC) && players[7].equals(Constants.PC) && players[8].equals(Constants.PC) && move[7]==7 && move[8]==8 && move[9]==9)
             win(Constants.PC, 6, 7, 8);
         else if(players[0].equals(Constants.PC) && players[3].equals(Constants.PC) && players[6].equals(Constants.PC) )
             win(Constants.PC, 0, 3, 6);

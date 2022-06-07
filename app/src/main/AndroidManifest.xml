@@ -16,7 +16,9 @@
             android:exported="false" />
         <activity
             android:name=".activity.PlayWithFriendOfflineActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/newGameWithFriendOffline"
+            android:parentActivityName=".activity.HomeActivity"/>
         <activity
             android:name=".activity.PlayWithPCActivity"
             android:exported="false"
