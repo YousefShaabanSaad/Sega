@@ -57,5 +57,7 @@
     <string name="playWithFriendOnline">Play with friend online</string>
     <string name="dislike">Dislike</string>
     <string name="like">Like</string>
+    <string name="copyLink">Copy link</string>
+    <string name="shareLink">Share link</string>
 
 </resources>

@@ -11,4 +11,8 @@ public class Constants {
     public static final String PC = "Pc";
     public static final String Y = "Y";
     public static final String N = "N";
+    public static final String GAMES = "Games";
+    public static final String PLAY = "Play";
+    public static final String FINISH = "Finish";
+
 }

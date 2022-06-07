@@ -29,7 +29,6 @@ public class RegisterFirebase {
     private final FirebaseFirestore firebaseFirestore;
     private final FirebaseStorage firebaseStorage;
     private final FirebaseAuth firebaseAuth;
-    private String mVerificationId;
 
     public RegisterFirebase() {
         firebaseAuth=FirebaseAuth.getInstance();

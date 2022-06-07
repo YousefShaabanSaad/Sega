@@ -16,13 +16,16 @@ import com.yousef.sega.R;
 import com.yousef.sega.listener.LoginInterface;
 import com.yousef.sega.listener.RegisterInterface;
 import com.yousef.sega.model.Constants;
+import com.yousef.sega.model.Game;
 import com.yousef.sega.model.User;
 
 public class Repository {
 
-    RegisterFirebase registerFirebase;
+    private final RegisterFirebase registerFirebase;
+    private final HomeFirebase homeFirebase;
     public Repository(){
         registerFirebase = new RegisterFirebase();
+        homeFirebase = new HomeFirebase();
     }
 
     public FirebaseUser getUser(){
@@ -47,5 +50,12 @@ public class Repository {
 
     public void signUp(User user , ProgressDialog dialog, RegisterInterface registerInterface) {
         registerFirebase.signUp(user, dialog, registerInterface);
+    }
+
+
+    //Home
+
+    public String createNewGame(Game game){
+        return homeFirebase.createNewGame(game);
     }
 }

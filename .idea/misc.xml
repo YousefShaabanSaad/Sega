@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/copy.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/dislike.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/favorite.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/ic_menu_camera.xml" value="0.198" />
@@ -23,6 +24,7 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/profile1.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/profileAppColor.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/rowbg.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/share.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/side_nav_bar.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/y.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout-v23/activity_play_with_friend_online.xml" value="0.20416666666666666" />
