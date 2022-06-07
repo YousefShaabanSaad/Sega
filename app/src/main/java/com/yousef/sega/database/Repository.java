@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.UploadTask;
 import com.yousef.sega.R;
+import com.yousef.sega.listener.GameInterface;
 import com.yousef.sega.listener.LoginInterface;
 import com.yousef.sega.listener.RegisterInterface;
 import com.yousef.sega.model.Constants;
@@ -69,7 +70,15 @@ public class Repository {
         homeFirebase.updateGame(id, key, value);
     }
 
-    public Game getGame(String id){
-        return homeFirebase.getGame(id);
+    public Game getGame(String id, GameInterface gameInterface){
+        return homeFirebase.getGame(id, gameInterface);
+    }
+
+    public void updatePlay(String id, int value){
+       homeFirebase.updatePlay(id, value);
+    }
+
+    public void deleteGame(String id){
+        homeFirebase.deleteGame(id);
     }
 }

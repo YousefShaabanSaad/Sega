@@ -59,5 +59,6 @@
     <string name="like">Like</string>
     <string name="copyLink">Copy link</string>
     <string name="shareLink">Share link</string>
+    <string name="finish">Your friend is out of the game</string>
 
 </resources>

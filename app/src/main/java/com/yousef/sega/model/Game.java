@@ -1,7 +1,7 @@
 package com.yousef.sega.model;
 
 public class Game {
-    private String Id, IdPlayer, Player1, Player2, Status, React;
+    private String Id, IdPlayer, Player1, Player2, Status, React, IdReact;
     private int Number;
 
     public String getId() {
@@ -50,6 +50,14 @@ public class Game {
 
     public void setReact(String react) {
         React = react;
+    }
+
+    public String getIdReact() {
+        return IdReact;
+    }
+
+    public void setIdReact(String idReact) {
+        IdReact = idReact;
     }
 
     public int getNumber() {

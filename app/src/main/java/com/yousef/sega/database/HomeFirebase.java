@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.yousef.sega.listener.GameInterface;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
 
@@ -50,22 +51,32 @@ public class HomeFirebase {
         firebaseDatabase.getReference(Constants.GAMES).child(id).updateChildren(map);
     }
 
-    public Game getGame(String id){
+    public Game getGame(String id, GameInterface gameInterface){
         game =new Game();
         firebaseDatabase.getReference(Constants.GAMES).child(id)
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot d:snapshot.getChildren())
+                for (DataSnapshot d:snapshot.getChildren()) {
                     game = d.getValue(Game.class);
+                    gameInterface.getGame(game);
+                }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
         return game;
+    }
+
+    public void updatePlay(String id, int value){
+        Map<String, Object> map=new HashMap<>();
+        map.put(Constants.NUMBER, value);
+        firebaseDatabase.getReference(Constants.GAMES).child(id).updateChildren(map);
+    }
+
+    public void deleteGame(String id){
+        firebaseDatabase.getReference(Constants.GAMES).child(id).removeValue();
     }
 
 }

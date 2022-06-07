@@ -1,5 +1,6 @@
 package com.yousef.sega.activity;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
@@ -7,24 +8,34 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.yousef.sega.R;
 import com.yousef.sega.database.Repository;
 import com.yousef.sega.databinding.ActivityPlayWithFriendOnlineBinding;
+import com.yousef.sega.listener.GameInterface;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
 
-public class PlayWithFriendOnlineActivity extends AppCompatActivity {
+public class PlayWithFriendOnlineActivity extends AppCompatActivity implements GameInterface {
 
     private ActivityPlayWithFriendOnlineBinding binding;
     private String link;
-    private  String id;
     private Repository repository;
     private Game game;
+    private String[] players;
+    private boolean isClick;
+    private int[] move;
+    private int scoreY, scoreN;
+    private Dialog dialog;
+    private String delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,31 +43,125 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity {
         binding = ActivityPlayWithFriendOnlineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        scoreY=0;
+        scoreN=0;
+        delete = "";
+
         game = new Game();
         link = "https://yousef.sega.com/";
         Uri uri = getIntent().getData();
         repository = new Repository();
+        String id = "";
         if(uri != null){
             //get id
             String path = uri.getPath();
             id = path.substring(1);
-            game = repository.getGame(id);
+            game = repository.getGame(id, this);
             if(!game.getPlayer2().equals("")) {
                 repository.updateGame(id, Constants.PLAYER2, repository.getUser().getUid());
                 repository.updateGame(id, Constants.STATUS, Constants.PLAY);
             }
         }
         else {
-            Game game = new Game();
-            game.setIdPlayer(repository.getUser().getUid());
-            game.setPlayer1(repository.getUser().getUid());
-            game.setPlayer2("");
-            game.setStatus(Constants.WAITING);
-            game.setNumber(0);
-            game.setReact("");
-            id = repository.createNewGame(game);
+            Game game1 = new Game();
+            game1.setIdPlayer(repository.getUser().getUid());
+            game1.setPlayer1(repository.getUser().getUid());
+            game1.setPlayer2("");
+            game1.setStatus(Constants.WAITING);
+            game1.setNumber(0);
+            game1.setReact("");
+            id = repository.createNewGame(game1);
+            game = repository.getGame(id, this);
         }
-        link+=id;
+        link+= id;
+
+        binding.num1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(1);
+            }
+        });
+
+        binding.num2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(2);
+            }
+        });
+
+        binding.num3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(3);
+            }
+        });
+
+        binding.num4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(4);
+            }
+        });
+
+        binding.num5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(5);
+            }
+        });
+
+        binding.num6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(6);
+            }
+        });
+
+        binding.num7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(7);
+            }
+        });
+
+        binding.num8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(8);
+            }
+        });
+
+        binding.num9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlayer(9);
+            }
+        });
+
+
+        binding.love.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                repository.updateGame(game.getId(), Constants.REACT, Constants.LOVE);
+                repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
+            }
+        });
+
+        binding.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                repository.updateGame(game.getId(), Constants.REACT, Constants.LIKE);
+                repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
+            }
+        });
+
+        binding.dislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                repository.updateGame(game.getId(), Constants.REACT, Constants.DISLIKE);
+                repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
+            }
+        });
 
     }
 
@@ -87,20 +192,300 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity {
         intent.setType("text/plain");
         startActivity(Intent.createChooser(intent, getString(R.string.shareLink)));
     }
+
+    private void checkPlayer(int numOfButton){
+        if(game.getIdPlayer().equals(repository.getUser().getUid())){
+            if(!isClick){
+                if (game.getIdPlayer().equals(game.getPlayer1()) && players[numOfButton - 1].equals(Constants.Y)) {
+                    repository.updatePlay(game.getId(), numOfButton);
+                    isClick = true;
+                }
+                else if (game.getIdPlayer().equals(game.getPlayer2()) && players[numOfButton - 1].equals(Constants.N)) {
+                    repository.updatePlay(game.getId(), numOfButton);
+                    isClick = true;
+                }
+            }
+            else{
+                if (game.getIdPlayer().equals(game.getPlayer1()) && players[numOfButton - 1].equals("")) {
+                    repository.updatePlay(game.getId(), numOfButton);
+                    isClick = false;
+                }
+                else if (game.getIdPlayer().equals(game.getPlayer2()) && players[numOfButton - 1].equals("")) {
+                    repository.updatePlay(game.getId(), numOfButton);
+                    isClick = false;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void getGame(Game thisGame) {
+        game = thisGame;
+        if(game.getNumber()==0){
+            setImage(1, R.drawable.y);
+            setImage(2, R.drawable.y);
+            setImage(3, R.drawable.y);
+            setImage(4, 0);
+            setImage(5, 0);
+            setImage(6, 0);
+            setImage(7, R.drawable.n);
+            setImage(8, R.drawable.n);
+            setImage(9, R.drawable.n);
+
+            setBackground(1,  R.drawable.item_bg);
+            setBackground(2,  R.drawable.item_bg);
+            setBackground(3,  R.drawable.item_bg);
+            setBackground(4,  R.drawable.item_bg);
+            setBackground(5,  R.drawable.item_bg);
+            setBackground(6,  R.drawable.item_bg);
+            setBackground(7,  R.drawable.item_bg);
+            setBackground(8,  R.drawable.item_bg);
+            setBackground(9, R.drawable.item_bg);
+
+            players = new String[]{Constants.Y, Constants.Y, Constants.Y, "", "", "", Constants.N, Constants.N, Constants.N};
+            isClick = false;
+            move= new int[10];
+            dialog.dismiss();
+        }
+        else{
+            if(!isClick){
+                setImage(game.getNumber(), 0);
+                players[game.getNumber() - 1]="";
+                if(game.getNumber()==1)
+                    move[1]=1;
+                else if(game.getNumber()==2)
+                    move[2]=2;
+                else if(game.getNumber()==3)
+                    move[3]=3;
+                else if(game.getNumber()==7)
+                    move[7]=7;
+                else if(game.getNumber()==8)
+                    move[8]=8;
+                else if(game.getNumber()==9)
+                    move[9]=9;
+            }
+            else {
+              if (game.getIdPlayer().equals(game.getPlayer1())) {
+                    setImage(game.getNumber(), R.drawable.y);
+                    players[game.getNumber() - 1] = Constants.Y;
+                    repository.updateGame(game.getId(), Constants.ID_PLAYER, game.getPlayer2());
+                    binding.n.setBackgroundResource(R.drawable.item_bg2);
+                }
+              else if (game.getIdPlayer().equals(game.getPlayer2())) {
+                    setImage(game.getNumber(), R.drawable.n);
+                    players[game.getNumber() - 1] = Constants.N;
+                    repository.updateGame(game.getId(), Constants.ID_PLAYER, game.getPlayer1());
+                  binding.y.setBackgroundResource(R.drawable.item_bg2);
+              }
+              checkWin();
+            }
+        }
+
+        //Show React
+        if(!game.getIdReact().equals(repository.getUser().getUid())){
+            switch (game.getReact()) {
+                case Constants.LOVE:
+                    Toast.makeText(this, "Love", Toast.LENGTH_SHORT).show();
+                    repository.updateGame(game.getId(), Constants.REACT,"");
+                    break;
+                case Constants.LIKE:
+                    Toast.makeText(this, "Like", Toast.LENGTH_SHORT).show();
+                    repository.updateGame(game.getId(), Constants.REACT,"");
+                    break;
+                case Constants.DISLIKE:
+                    Toast.makeText(this, "Dislike", Toast.LENGTH_SHORT).show();
+                    repository.updateGame(game.getId(), Constants.REACT,"");
+                    break;
+            }
+        }
+
+
+        //Check exit or no
+        switch (game.getStatus()) {
+            case Constants.PLAY:
+                binding.num1.setClickable(true);
+                binding.num2.setClickable(true);
+                binding.num3.setClickable(true);
+                binding.num4.setClickable(true);
+                binding.num5.setClickable(true);
+                binding.num6.setClickable(true);
+                binding.num7.setClickable(true);
+                binding.num8.setClickable(true);
+                binding.num9.setClickable(true);
+                break;
+
+            case Constants.WAITING:
+                binding.num1.setClickable(false);
+                binding.num2.setClickable(false);
+                binding.num3.setClickable(false);
+                binding.num4.setClickable(false);
+                binding.num5.setClickable(false);
+                binding.num6.setClickable(false);
+                binding.num7.setClickable(false);
+                binding.num8.setClickable(false);
+                binding.num9.setClickable(false);
+                break;
+
+            case Constants.FINISH:
+                dialog = new Dialog(this);
+                dialog.setContentView(R.layout.item_win);
+                dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.item_bg));
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false); //Optional
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+                ImageView win = dialog.findViewById(R.id.win);
+                win.setImageResource(R.drawable.logo);
+                TextView textView = dialog.findViewById(R.id.congratulations);
+                textView.setText(getString(R.string.finish));
+
+                Button game = dialog.findViewById(R.id.newGame);
+                Button back = dialog.findViewById(R.id.back);
+                game.setVisibility(View.GONE);
+                back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        PlayWithFriendOnlineActivity.super.onBackPressed();
+                        delete = Constants.DELETE;
+                    }
+                });
+                break;
+        }
+    }
+
+    private void setImage(int numOfButton, int drawable){
+        if(numOfButton == 1)
+            binding.num1.setImageResource(drawable);
+        else if(numOfButton == 2)
+            binding.num2.setImageResource(drawable);
+        else if(numOfButton == 3)
+            binding.num3.setImageResource(drawable);
+        else if(numOfButton == 4)
+            binding.num4.setImageResource(drawable);
+        else if(numOfButton == 5)
+            binding.num5.setImageResource(drawable);
+        else if(numOfButton == 6)
+            binding.num6.setImageResource(drawable);
+        else if(numOfButton == 7)
+            binding.num7.setImageResource(drawable);
+        else if(numOfButton == 8)
+            binding.num8.setImageResource(drawable);
+        else if(numOfButton == 9)
+            binding.num9.setImageResource(drawable);
+    }
+
+    private void setBackground(int numOfButton, int drawable){
+        if(numOfButton == 1)
+            binding.num1.setBackgroundResource(drawable);
+        else if(numOfButton == 2)
+            binding.num2.setBackgroundResource(drawable);
+        else if(numOfButton == 3)
+            binding.num3.setBackgroundResource(drawable);
+        else if(numOfButton == 4)
+            binding.num4.setBackgroundResource(drawable);
+        else if(numOfButton == 5)
+            binding.num5.setBackgroundResource(drawable);
+        else if(numOfButton == 6)
+            binding.num6.setBackgroundResource(drawable);
+        else if(numOfButton == 7)
+            binding.num7.setBackgroundResource(drawable);
+        else if(numOfButton == 8)
+            binding.num8.setBackgroundResource(drawable);
+        else if(numOfButton == 9)
+            binding.num9.setBackgroundResource(drawable);
+    }
+
+    private void checkWin(){
+        if(players[0].equals(Constants.Y) && players[1].equals(Constants.Y) && players[2].equals(Constants.Y) && move[1]==1 && move[2]==2 & move[3]==3)
+            win(Constants.Y, 0, 1, 2);
+        else if(players[3].equals(Constants.Y) && players[4].equals(Constants.Y) && players[5].equals(Constants.Y) )
+            win(Constants.Y, 3, 4, 5);
+        else if(players[6].equals(Constants.Y) && players[7].equals(Constants.Y) && players[8].equals(Constants.Y) )
+            win(Constants.Y, 6, 7, 8);
+        else if(players[0].equals(Constants.Y) && players[3].equals(Constants.Y) && players[6].equals(Constants.Y) )
+            win(Constants.Y, 0, 3, 6);
+        else if(players[1].equals(Constants.Y) && players[4].equals(Constants.Y) && players[7].equals(Constants.Y) )
+            win(Constants.Y, 1, 4, 7);
+        else if(players[2].equals(Constants.Y) && players[5].equals(Constants.Y) && players[8].equals(Constants.Y) )
+            win(Constants.Y, 2, 5, 8);
+        else if(players[0].equals(Constants.Y) && players[4].equals(Constants.Y) && players[8].equals(Constants.Y) )
+            win(Constants.Y, 0, 4, 8);
+        else if(players[2].equals(Constants.Y) && players[4].equals(Constants.Y) && players[6].equals(Constants.Y) )
+            win(Constants.Y, 2, 4, 6);
+
+
+        else if(players[0].equals(Constants.N) && players[1].equals(Constants.N) && players[2].equals(Constants.N))
+            win(Constants.N, 0, 1, 2);
+        else if(players[3].equals(Constants.N) && players[4].equals(Constants.N) && players[5].equals(Constants.N) )
+            win(Constants.N, 3, 4, 5);
+        else if(players[6].equals(Constants.N) && players[7].equals(Constants.N) && players[8].equals(Constants.N) && move[7]==7 && move[8]==8 && move[9]==9)
+            win(Constants.N, 6, 7, 8);
+        else if(players[0].equals(Constants.N) && players[3].equals(Constants.N) && players[6].equals(Constants.N) )
+            win(Constants.N, 0, 3, 6);
+        else if(players[1].equals(Constants.N) && players[4].equals(Constants.N) && players[7].equals(Constants.N) )
+            win(Constants.N, 1, 4, 7);
+        else if(players[2].equals(Constants.N) && players[5].equals(Constants.N) && players[8].equals(Constants.N) )
+            win(Constants.N, 2, 5, 8);
+        else if(players[0].equals(Constants.N) && players[4].equals(Constants.N) && players[8].equals(Constants.N) )
+            win(Constants.N, 0, 4, 8);
+        else if(players[2].equals(Constants.N) && players[4].equals(Constants.N) && players[6].equals(Constants.N) )
+            win(Constants.N, 2, 4, 6);
+
+    }
+
+    private void win(String winPlayer, int position1, int position2, int position3) {
+        if(winPlayer.equals(Constants.Y))
+            scoreY++;
+        else if(winPlayer.equals(Constants.N))
+            scoreN++;
+        String score=scoreY+ " - "+scoreN;
+        binding.score.setText(score);
+
+        setBackground(position1+1, R.drawable.item_bg2);
+        setBackground(position2+1, R.drawable.item_bg2);
+        setBackground(position3+1, R.drawable.item_bg2);
+
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.item_win);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.item_bg));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false); //Optional
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+        TextView textView =dialog.findViewById(R.id.congratulations);
+        String text = getString(R.string.congratulations ) +" "+ winPlayer;
+        textView.setText(text);
+
+        Button game= dialog.findViewById(R.id.newGame);
+        Button back= dialog.findViewById(R.id.back);
+
+        game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newGame();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlayWithFriendOnlineActivity.super.onBackPressed();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void newGame() {
+        repository.updatePlay(game.getId(), 0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(delete.equals(""))
+            repository.updateGame(game.getId(), Constants.STATUS, Constants.FINISH);
+        else
+            repository.deleteGame(game.getId());
+    }
 }
-
-
-
-
-
-
-//URI
-
-
-
-//        binding.love.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
