@@ -6,4 +6,7 @@ public class Constants {
     public static final String USER = "User";
     public static final String USERS = "Users";
     public static final String PROFILES = "Profiles";
+
+    public static final String ME = "Me";
+    public static final String PC = "Pc";
 }

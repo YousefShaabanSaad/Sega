@@ -22,10 +22,11 @@
         android:layout_marginHorizontal="@dimen/_25sdp">
 
         <ImageView
+            android:id="@+id/me"
             android:layout_width="0dp"
             android:layout_height="@dimen/_70sdp"
             android:layout_weight="1"
-            android:src="@drawable/y"
+            android:src="@drawable/me"
             android:layout_margin="@dimen/_10sdp"
             android:background="@drawable/item_bg2"
             android:contentDescription="@string/app_name" />
@@ -35,17 +36,18 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_70sdp"
             android:layout_weight="1"
-            tools:text="0 - 0"
+            android:text="@string/zero"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="@dimen/_20ssp"/>
 
         <ImageView
+            android:id="@+id/pc"
             android:layout_width="0dp"
             android:layout_height="@dimen/_70sdp"
             android:layout_weight="1"
-            android:src="@drawable/n"
+            android:src="@drawable/pc"
             android:layout_margin="@dimen/_10sdp"
             android:background="@drawable/item_bg"
             android:contentDescription="@string/app_name" />
@@ -67,28 +69,31 @@
             android:layout_marginVertical="@dimen/_10sdp">
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num1"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
-                android:src="@drawable/y"
+                android:src="@drawable/me"
                 android:scaleType="centerCrop"
                 android:background="@drawable/item_bg"
                 android:layout_marginHorizontal="@dimen/_10sdp"/>
 
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num2"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
-                android:src="@drawable/y"
+                android:src="@drawable/me"
                 android:scaleType="centerCrop"
                 android:background="@drawable/item_bg" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num3"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
-                android:src="@drawable/y"
+                android:src="@drawable/me"
                 android:scaleType="centerCrop"
                 android:background="@drawable/item_bg"
                 android:layout_marginHorizontal="@dimen/_10sdp"/>
@@ -101,6 +106,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num4"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -110,6 +116,7 @@
 
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num5"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -117,6 +124,7 @@
                 android:background="@drawable/item_bg" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num6"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
@@ -133,28 +141,31 @@
             android:layout_marginVertical="@dimen/_10sdp">
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num7"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
-                android:src="@drawable/n"
+                android:src="@drawable/pc"
                 android:scaleType="centerCrop"
                 android:background="@drawable/item_bg"
                 android:layout_marginHorizontal="@dimen/_10sdp"/>
 
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num8"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
-                android:src="@drawable/n"
+                android:src="@drawable/pc"
                 android:scaleType="centerCrop"
                 android:background="@drawable/item_bg" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/num9"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_70sdp"
                 android:layout_weight="1"
-                android:src="@drawable/n"
+                android:src="@drawable/pc"
                 android:scaleType="centerCrop"
                 android:background="@drawable/item_bg"
                 android:layout_marginHorizontal="@dimen/_10sdp"/>

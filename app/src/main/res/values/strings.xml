@@ -50,5 +50,6 @@
     <string name="noPermission">No permission</string>
     <string name="signOut">Sign Out</string>
     <string name="signOutLoading">Sign Out ...</string>
+    <string name="zero">0 – 0</string>
 
 </resources>

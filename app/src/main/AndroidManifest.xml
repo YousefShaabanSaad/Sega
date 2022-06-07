@@ -19,21 +19,24 @@
             android:exported="false" />
         <activity
             android:name=".activity.PlayWithPCActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/newGameWithPC"
+            android:parentActivityName=".activity.HomeActivity"/>
         <activity
             android:name=".activity.PlayWithFriendOnlineActivity"
             android:exported="true"
             android:parentActivityName=".activity.HomeActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="https" />
                 <data android:host="sega.com" />
             </intent-filter>
+
         </activity>
+
         <activity
             android:name=".activity.HomeActivity"
             android:exported="false"
