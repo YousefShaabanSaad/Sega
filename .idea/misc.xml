@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/copy.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/dialog_background.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/dislike.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/favorite.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/ic_menu_camera.xml" value="0.198" />
@@ -16,6 +17,7 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/logo.xml" value="0.1" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/logo2.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/me.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/message_bg.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/n.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/pc.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/player1.xml" value="0.198" />
@@ -40,12 +42,15 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_registration.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/activity_verification.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/app_bar_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/bottom_about.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/bottom_about_participants.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/content_home.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_about.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_friend.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_friends.xml" value="0.19010416666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_settings.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/item_chat.xml" value="0.33" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/item_win.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/nav_header_home.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />

@@ -1,28 +1,39 @@
 package com.yousef.sega.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yousef.sega.R;
+import com.yousef.sega.adapter.ChatsAdapter;
 import com.yousef.sega.database.Repository;
 import com.yousef.sega.databinding.ActivityPlayWithFriendOnlineBinding;
 import com.yousef.sega.listener.GameInterface;
+import com.yousef.sega.model.Chat;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
+import java.util.List;
 
 public class PlayWithFriendOnlineActivity extends AppCompatActivity implements GameInterface {
 
@@ -36,6 +47,8 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
     private int scoreY, scoreN;
     private Dialog dialog;
     private String delete;
+    private List<Chat> chats;
+    private ChatsAdapter chatsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +85,9 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
             game1.setReact("");
             id = repository.createNewGame(game1);
             game = repository.getGame(id, this);
+
+            chats = repository.getChats(game.getId(), this);
+            chatsAdapter =new ChatsAdapter(getApplicationContext(), chats);
         }
         link+= id;
 
@@ -160,6 +176,20 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
             public void onClick(View view) {
                 repository.updateGame(game.getId(), Constants.REACT, Constants.DISLIKE);
                 repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
+            }
+        });
+
+        binding.chats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showChat();
+            }
+        });
+
+        binding.participants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showParticipants();
             }
         });
 
@@ -478,6 +508,54 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
 
     private void newGame() {
         repository.updatePlay(game.getId(), 0);
+    }
+
+
+    private void showChat() {
+        BottomSheetDialog bottomSheetDialogSoura=new BottomSheetDialog( this,R.style.bottomTheme );
+        View bottom= LayoutInflater.from( this ).inflate( R.layout.bottom_about_chats,findViewById( R.id.containerParticipants ) );
+        bottomSheetDialogSoura.setContentView( bottom );
+        RecyclerView recyclerView =bottom.findViewById(R.id.participantsRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(chatsAdapter);
+
+        EditText message= bottom.findViewById(R.id.writeMessage);
+        FloatingActionButton send= bottom.findViewById(R.id.send);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(message.getText().toString().equals(""))
+                    message.requestFocus();
+                else {
+                    Chat chat = new Chat();
+                    chat.setName(repository.getUser().getDisplayName());
+                    chat.setProfile(repository.getUser().getPhotoUrl().toString());
+                    chat.setMessage(message.getText().toString());
+                    repository.createNewChat(game.getId(), chat);
+                    message.setText("");
+                }
+            }
+        });
+
+    }
+
+    private void showParticipants() {
+        BottomSheetDialog bottomSheetDialogSoura=new BottomSheetDialog( this,R.style.bottomTheme );
+        View bottom= LayoutInflater.from( this ).inflate( R.layout.item_chat,findViewById( R.id.containerParticipants ) );
+        bottomSheetDialogSoura.setContentView( bottom );
+
+        RecyclerView recyclerView =bottom.findViewById(R.id.participantsRecyclerView);
+
+        bottomSheetDialogSoura.show();
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void getChats(List<Chat> chats1) {
+        chats.clear();
+        chats = chats1;
+        chatsAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -19,11 +19,14 @@ import com.yousef.sega.R;
 import com.yousef.sega.listener.GameInterface;
 import com.yousef.sega.listener.LoginInterface;
 import com.yousef.sega.listener.RegisterInterface;
+import com.yousef.sega.model.Chat;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
 import com.yousef.sega.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Repository {
@@ -80,5 +83,13 @@ public class Repository {
 
     public void deleteGame(String id){
         homeFirebase.deleteGame(id);
+    }
+
+    public List<Chat> getChats(String id, GameInterface gameInterface){
+        return homeFirebase.getChats(id, gameInterface);
+    }
+
+    public void createNewChat(String id, Chat chat) {
+        homeFirebase.createNewChat(id, chat);
     }
 }

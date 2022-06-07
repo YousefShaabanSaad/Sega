@@ -27,4 +27,13 @@
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
+
+    <style name="bottomTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomStyle</item>
+    </style>
+
+    <style name="bottomStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
 </resources>

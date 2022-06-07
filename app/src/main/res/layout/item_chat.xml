@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutChat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="@dimen/_5sdp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageChat"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:background="?selectableItemBackground"
+        android:src="@drawable/profile"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/nameChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/copyLink"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_30sdp"
+            android:background="@drawable/message_bg"
+            tools:text="@string/emailErrorForgetPassword"
+            android:padding="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_5sdp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

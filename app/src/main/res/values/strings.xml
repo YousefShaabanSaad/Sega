@@ -60,5 +60,7 @@
     <string name="copyLink">Copy link</string>
     <string name="shareLink">Share link</string>
     <string name="finish">Your friend is out of the game</string>
+    <string name="send">Send</string>
+    <string name="write">Enter message</string>
 
 </resources>

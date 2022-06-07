@@ -13,10 +13,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.yousef.sega.listener.GameInterface;
+import com.yousef.sega.model.Chat;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomeFirebase {
@@ -25,6 +28,7 @@ public class HomeFirebase {
     private final FirebaseStorage firebaseStorage;
     private final FirebaseAuth firebaseAuth;
     private Game game;
+    private List<Chat> chats;
 
     public HomeFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -33,50 +37,70 @@ public class HomeFirebase {
         firebaseStorage = FirebaseStorage.getInstance();
     }
 
-    public String createNewGame(Game game){
+    public String createNewGame(Game game) {
         String id = firebaseDatabase.getReference(Constants.GAMES).push().getKey();
         game.setId(id);
-        firebaseDatabase.getReference(Constants.GAMES).child(id).setValue(game).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("joo","no");
-            }
-        });
+        firebaseDatabase.getReference(Constants.GAMES).child(game.getId()).setValue(game);
         return id;
     }
 
-    public void updateGame(String id, String key, String value){
-        Map<String, Object> map=new HashMap<>();
+    public void updateGame(String id, String key, String value) {
+        Map<String, Object> map = new HashMap<>();
         map.put(key, value);
         firebaseDatabase.getReference(Constants.GAMES).child(id).updateChildren(map);
     }
 
-    public Game getGame(String id, GameInterface gameInterface){
-        game =new Game();
+    public Game getGame(String id, GameInterface gameInterface) {
+        game = new Game();
         firebaseDatabase.getReference(Constants.GAMES).child(id)
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot d:snapshot.getChildren()) {
-                    game = d.getValue(Game.class);
-                    gameInterface.getGame(game);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot d : snapshot.getChildren()) {
+                            game = d.getValue(Game.class);
+                            gameInterface.getGame(game);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
         return game;
     }
 
-    public void updatePlay(String id, int value){
-        Map<String, Object> map=new HashMap<>();
+    public void updatePlay(String id, int value) {
+        Map<String, Object> map = new HashMap<>();
         map.put(Constants.NUMBER, value);
         firebaseDatabase.getReference(Constants.GAMES).child(id).updateChildren(map);
     }
 
-    public void deleteGame(String id){
+    public void deleteGame(String id) {
         firebaseDatabase.getReference(Constants.GAMES).child(id).removeValue();
     }
 
+    public List<Chat> getChats(String id, GameInterface gameInterface) {
+        chats = new ArrayList<>();
+        firebaseDatabase.getReference(Constants.CHATS).child(id)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot d : snapshot.getChildren()) {
+                            Chat chat = d.getValue(Chat.class);
+                            chats.add(chat);
+                        }
+                        gameInterface.getChats(chats);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+        return chats;
+    }
+
+    public void createNewChat(String id, Chat chat) {
+        chat.setId(firebaseDatabase.getReference(Constants.CHATS).child(id).push().getKey());
+        firebaseDatabase.getReference(Constants.CHATS).child(id).child(chat.getId()).setValue(chat);
+    }
 }
