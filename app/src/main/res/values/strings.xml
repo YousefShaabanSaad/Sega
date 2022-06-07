@@ -52,4 +52,8 @@
     <string name="signOutLoading">Sign Out ...</string>
     <string name="zero">0 – 0</string>
 
+    <string name="playWithPC">Play with computer</string>
+    <string name="playWithFriendOffline">Play with friend offline</string>
+    <string name="playWithFriendOnline">Play with friend online</string>
+
 </resources>

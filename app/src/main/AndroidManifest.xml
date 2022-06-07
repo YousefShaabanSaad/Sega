@@ -14,19 +14,11 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:exported="false" />
-        <activity
-            android:name=".activity.PlayWithFriendOfflineActivity"
-            android:exported="false"
-            android:label="@string/newGameWithFriendOffline"
-            android:parentActivityName=".activity.HomeActivity"/>
-        <activity
-            android:name=".activity.PlayWithPCActivity"
-            android:exported="false"
-            android:label="@string/newGameWithPC"
-            android:parentActivityName=".activity.HomeActivity"/>
+
         <activity
             android:name=".activity.PlayWithFriendOnlineActivity"
             android:exported="true"
+            android:label="@string/playWithFriendOnline"
             android:parentActivityName=".activity.HomeActivity">
 
             <intent-filter>
@@ -38,6 +30,18 @@
             </intent-filter>
 
         </activity>
+
+        <activity
+            android:name=".activity.PlayWithFriendOfflineActivity"
+            android:exported="false"
+            android:label="@string/playWithFriendOffline"
+            android:parentActivityName=".activity.HomeActivity"/>
+
+        <activity
+            android:name=".activity.PlayWithPCActivity"
+            android:exported="false"
+            android:label="@string/playWithPC"
+            android:parentActivityName=".activity.HomeActivity"/>
 
         <activity
             android:name=".activity.HomeActivity"
