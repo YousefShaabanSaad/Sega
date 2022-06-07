@@ -11,6 +11,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.UploadTask;
 import com.yousef.sega.R;
 import com.yousef.sega.listener.LoginInterface;
@@ -18,6 +21,9 @@ import com.yousef.sega.listener.RegisterInterface;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
 import com.yousef.sega.model.User;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Repository {
 
@@ -57,5 +63,13 @@ public class Repository {
 
     public String createNewGame(Game game){
         return homeFirebase.createNewGame(game);
+    }
+
+    public void updateGame(String id, String key, String value){
+        homeFirebase.updateGame(id, key, value);
+    }
+
+    public Game getGame(String id){
+        return homeFirebase.getGame(id);
     }
 }

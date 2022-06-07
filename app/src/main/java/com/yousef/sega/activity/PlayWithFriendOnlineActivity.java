@@ -24,6 +24,7 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity {
     private String link;
     private  String id;
     private Repository repository;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +32,31 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity {
         binding = ActivityPlayWithFriendOnlineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        link = "https://sega.com/";
+        game = new Game();
+        link = "https://yousef.sega.com/";
         Uri uri = getIntent().getData();
+        repository = new Repository();
         if(uri != null){
             //get id
             String path = uri.getPath();
-            id = path.substring(17, path.length()-1);
-        }else {
+            id = path.substring(1);
+            game = repository.getGame(id);
+            if(!game.getPlayer2().equals("")) {
+                repository.updateGame(id, Constants.PLAYER2, repository.getUser().getUid());
+                repository.updateGame(id, Constants.STATUS, Constants.PLAY);
+            }
+        }
+        else {
             Game game = new Game();
             game.setIdPlayer(repository.getUser().getUid());
             game.setPlayer1(repository.getUser().getUid());
             game.setPlayer2("");
-            game.setStatus(Constants.PLAY);
+            game.setStatus(Constants.WAITING);
             game.setNumber(0);
             game.setReact("");
             id = repository.createNewGame(game);
         }
         link+=id;
-
 
     }
 

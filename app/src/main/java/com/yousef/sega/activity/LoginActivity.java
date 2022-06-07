@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
                 }
                 else {
                     email +="@gmail.com";
+                    Toast.makeText(LoginActivity.this, email, Toast.LENGTH_SHORT).show();
                     repository.signIn(email, password, LoginActivity.this);
                 }
             }
