@@ -95,7 +95,6 @@ public class HomeFirebase {
 
     public List<Chat> getChats(String id, GameInterface gameInterface) {
         chats = new ArrayList<>();
-        chats.clear();
         //Log.d("JOOOOOOOOOOOOOOOOO",chats.size()+"");
         firebaseDatabase.getReference(Constants.CHATS).child(id)
                 .addValueEventListener(new ValueEventListener() {

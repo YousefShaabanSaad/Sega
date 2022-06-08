@@ -8,6 +8,9 @@
     android:gravity="center_horizontal"
     tools:context=".fragment.FriendsFragment">
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friendsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

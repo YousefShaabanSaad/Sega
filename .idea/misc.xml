@@ -19,6 +19,7 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/me.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/message_bg.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/n.xml" value="0.198" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/online.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/pc.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/player1.xml" value="0.198" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/drawable/player2.xml" value="0.198" />
@@ -52,6 +53,7 @@
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/fragment_settings.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/item_chat.xml" value="0.33" />
+        <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/item_friends.xml" value="0.67" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/item_participants.xml" value="0.25" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/item_win.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProject/Sega/app/src/main/res/layout/nav_header_home.xml" value="0.20416666666666666" />

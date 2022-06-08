@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,58 +60,7 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
         binding = ActivityPlayWithFriendOnlineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        scoreY=0;
-        scoreN=0;
-        delete = "";
-
-        game = new Game();
-        link = "https://yousef.sega.com/";
-        Uri uri = getIntent().getData();
-        repository = new Repository();
-        String id;
-        if(uri != null){
-            //get id
-            String path = uri.getPath();
-            id = path.substring(1);
-            game = repository.getGame(id, this);
-            if(!game.getPlayer2().equals("")) {
-                repository.updateGame(id, Constants.PLAYER2, repository.getUser().getUid());
-                repository.updateGame(id, Constants.STATUS, Constants.PLAY);
-            }
-
-            User user = new User();
-            user.setId(repository.getUser().getUid());
-            user.setName(repository.getUser().getDisplayName());
-            user.setProfile(repository.getUser().getPhotoUrl().toString());
-            repository.createNewParticipants(id,user);
-        }
-        else {
-            Game game1 = new Game();
-            game1.setIdPlayer(repository.getUser().getUid());
-            game1.setIdOwner(repository.getUser().getUid());
-            game1.setIdReact("");
-            game1.setPlayer1(repository.getUser().getUid());
-            game1.setPlayer2("");
-            game1.setStatus(Constants.WAITING);
-            game1.setNumber(-1);
-            game1.setReact("");
-            id = repository.createNewGame(game1, this);
-
-            User user = new User();
-            user.setId(repository.getUser().getUid());
-            user.setName(repository.getUser().getDisplayName());
-          //  user.setProfile(repository.getUser().getPhotoUrl().toString());
-            user.setProfile("ht");
-            repository.createNewParticipants(id,user);
-
-            Chat chat = new Chat();
-            chat.setProfile("ht");
-            chat.setName("Sega");
-            //  user.setProfile(repository.getUser().getPhotoUrl().toString());
-            chat.setMessage("أهلا بكم في لعبة سيجا");
-            repository.createNewChat(id,chat);
-        }
-        link+= id;
+        init();
 
         binding.num1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +166,64 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
 
     }
 
+    private void init(){
+        scoreY=0;
+        scoreN=0;
+        delete = "";
+        game = new Game();
+
+        link = "https://yousef.sega.com/";
+        Uri uri = getIntent().getData();
+        repository = new Repository();
+        String id;
+
+        if(uri != null){
+            String path = uri.getPath();
+            id = path.substring(1);
+            game = repository.getGame(id, this);
+            if(!game.getPlayer2().equals("")) {
+                repository.updateGame(id, Constants.PLAYER2, repository.getUser().getUid());
+                repository.updateGame(id, Constants.STATUS, Constants.PLAY);
+                Toast.makeText(this, "يمكنك اللعب الآن", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Game game1 = new Game();
+            game1.setIdPlayer(repository.getUser().getUid());
+            game1.setIdOwner(repository.getUser().getUid());
+            game1.setIdReact("");
+            game1.setPlayer1(repository.getUser().getUid());
+            game1.setPlayer2("");
+            game1.setStatus(Constants.WAITING);
+            game1.setNumber(-1);
+            game1.setReact("");
+            id = repository.createNewGame(game1, this);
+
+            Toast.makeText(this, "لا يمكنك اللعب الآن", Toast.LENGTH_SHORT).show();
+            createChat(id);
+        }
+
+        createUser(id);
+        link+= id;
+    }
+
+    private void createChat(String id){
+        Chat chat = new Chat();
+        chat.setProfile(Constants.LOGO);
+        chat.setName(Constants.LOGO);
+        chat.setMessage(Constants.LOGO);
+        repository.createNewChat(id,chat);
+    }
+
+    private void createUser(String id){
+        User user = new User();
+        user.setId(repository.getUser().getUid());
+        user.setName(repository.getUser().getDisplayName());
+        //user.setProfile(repository.getUser().getPhotoUrl().toString());
+        user.setProfile("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80");
+        repository.createNewParticipants(id,user);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.play_menu, menu);
@@ -226,24 +232,18 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.copyLink)
-            copyLink();
-        if (item.getItemId() == R.id.shareLink)
-            shareLink();
+        if (item.getItemId() == R.id.copyLink){
+            ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+            ClipData clipData = android.content.ClipData.newPlainText(getString(R.string.app_name), link);
+            clipboardManager.setPrimaryClip(clipData);
+        }
+        if (item.getItemId() == R.id.shareLink){
+            Intent intent =new Intent(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, link);
+            intent.setType("text/plain");
+            startActivity(Intent.createChooser(intent, getString(R.string.shareLink)));
+        }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void copyLink() {
-        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        ClipData clipData = android.content.ClipData.newPlainText(getString(R.string.app_name), link);
-        clipboardManager.setPrimaryClip(clipData);
-    }
-
-    private void shareLink() {
-        Intent intent =new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT, link);
-        intent.setType("text/plain");
-        startActivity(Intent.createChooser(intent, getString(R.string.shareLink)));
     }
 
     private void checkPlayer(int numOfButton){
@@ -333,6 +333,11 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
             }
         }
 
+        showReact();
+        checkFinish();
+    }
+
+    private void showReact(){
         //Show React
         if(!game.getIdReact().equals(repository.getUser().getUid())){
             switch (game.getReact()) {
@@ -350,34 +355,17 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                     break;
             }
         }
+    }
 
-
+    private void checkFinish(){
         //Check exit or no
         switch (game.getStatus()) {
             case Constants.PLAY:
-                binding.num1.setClickable(true);
-                binding.num2.setClickable(true);
-                binding.num3.setClickable(true);
-                binding.num4.setClickable(true);
-                binding.num5.setClickable(true);
-                binding.num6.setClickable(true);
-                binding.num7.setClickable(true);
-                binding.num8.setClickable(true);
-                binding.num9.setClickable(true);
-                Toast.makeText(this, "يمكنك اللعب الآن", Toast.LENGTH_SHORT).show();
+                checkPlay(true);
                 break;
 
             case Constants.WAITING:
-                binding.num1.setClickable(false);
-                binding.num2.setClickable(false);
-                binding.num3.setClickable(false);
-                binding.num4.setClickable(false);
-                binding.num5.setClickable(false);
-                binding.num6.setClickable(false);
-                binding.num7.setClickable(false);
-                binding.num8.setClickable(false);
-                binding.num9.setClickable(false);
-                Toast.makeText(this, "لا يمكنك اللعب الآن", Toast.LENGTH_SHORT).show();
+                checkPlay(false);
                 break;
 
             case Constants.FINISH:
@@ -405,6 +393,18 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                 });
                 break;
         }
+    }
+
+    private void checkPlay(boolean check){
+        binding.num1.setClickable(check);
+        binding.num2.setClickable(check);
+        binding.num3.setClickable(check);
+        binding.num4.setClickable(check);
+        binding.num5.setClickable(check);
+        binding.num6.setClickable(check);
+        binding.num7.setClickable(check);
+        binding.num8.setClickable(check);
+        binding.num9.setClickable(check);
     }
 
     private void setImage(int numOfButton, int drawable){
@@ -582,6 +582,8 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void getChats(List<Chat> chats1) {
+        Toast.makeText(this, chats.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, chats1.toString(), Toast.LENGTH_SHORT).show();
         chats = chats1;
         chatsAdapter.notifyDataSetChanged();
     }

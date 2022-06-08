@@ -35,4 +35,5 @@ public class Constants {
     public static final String PARTICIPANTS = "Participants";
 
 
+    public static final String LOGO = "Logo";
 }

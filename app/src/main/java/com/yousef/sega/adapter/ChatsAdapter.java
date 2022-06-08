@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.yousef.sega.R;
 import com.yousef.sega.model.Chat;
+import com.yousef.sega.model.Constants;
+
 import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,9 +35,20 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Chat chat = chats.get(position);
-        Glide.with(context).load(Uri.parse(chat.getProfile())).centerCrop().placeholder(R.drawable.profile).into(holder.imageChat);
-        holder.nameChat.setText(chat.getName());
-        holder.message.setText(chat.getMessage());
+        if(chat.getProfile().equals(Constants.LOGO))
+            holder.imageChat.setImageResource(R.drawable.logo);
+        else
+            Glide.with(context).load(Uri.parse(chat.getProfile())).centerCrop().placeholder(R.drawable.profile).into(holder.imageChat);
+
+        if(chat.getName().equals(Constants.LOGO))
+            holder.nameChat.setText(context.getString(R.string.segaOwner));
+        else
+            holder.nameChat.setText(chat.getName());
+
+        if(chat.getMessage().equals(Constants.LOGO))
+            holder.message.setText(context.getString(R.string.welcome));
+        else
+            holder.message.setText(chat.getMessage());
     }
 
     @Override
