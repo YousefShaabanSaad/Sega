@@ -1,7 +1,13 @@
 package com.yousef.sega.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,8 +29,9 @@ public class VerificationActivity extends AppCompatActivity {
 
         User user = (User) getIntent().getExtras().getSerializable(Constants.USER);
 
+        Toast.makeText(this, getString(R.string.verify).length()+"", Toast.LENGTH_SHORT).show();
         String text = getString(R.string.verify) +" "+getEmailHide(user.getEmail())+" "+ getString(R.string.verify2);
-        binding.questionVerify.setText(text);
+        binding.questionVerify.setText(emailColored(text,user.getEmail().length()));
 
         Repository repository = new Repository();
         repository.createEmail(user.getEmail(), user.getPassword(), getApplicationContext());
@@ -65,5 +72,12 @@ public class VerificationActivity extends AppCompatActivity {
                 newEmail+="*";
         }
         return newEmail;
+    }
+
+    private SpannableStringBuilder emailColored(String text, int length){
+        SpannableStringBuilder ssb = new SpannableStringBuilder(text);
+        ForegroundColorSpan fcsRed = new ForegroundColorSpan(getResources().getColor(R.color.appColor));
+        ssb.setSpan(fcsRed, 51, 52+length, Spanned.SPAN_COMPOSING);
+        return ssb;
     }
 }

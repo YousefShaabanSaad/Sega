@@ -36,7 +36,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_15ssp"
+                android:textSize="@dimen/_17ssp"
                 tools:text="@string/verify" />
 
             <Button
@@ -65,7 +65,7 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="@dimen/_12ssp"
                     android:textStyle="bold"
                     android:text="@string/questionResend" />
 
@@ -78,7 +78,7 @@
                     android:focusable="true"
                     android:text="@string/resend"
                     android:textColor="@color/appColor"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="@dimen/_14ssp"
                     android:textStyle="bold" />
 
             </LinearLayout>
