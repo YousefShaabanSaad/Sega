@@ -92,4 +92,20 @@ public class Repository {
     public void createNewChat(String id, Chat chat) {
         homeFirebase.createNewChat(id, chat);
     }
+
+    public List<User> getUsers(String id, GameInterface gameInterface) {
+        return homeFirebase.getUsers(id, gameInterface);
+    }
+
+    public void createNewParticipants(String id, User user) {
+        homeFirebase.createNewParticipants(id, user);
+    }
+
+    public void deleteChat(String id) {
+        homeFirebase.deleteChat(id);
+    }
+
+    public void deleteParticipants(String id) {
+        homeFirebase.deleteParticipants(id);
+    }
 }

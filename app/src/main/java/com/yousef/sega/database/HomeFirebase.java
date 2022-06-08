@@ -16,6 +16,7 @@ import com.yousef.sega.listener.GameInterface;
 import com.yousef.sega.model.Chat;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
+import com.yousef.sega.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class HomeFirebase {
     private final FirebaseAuth firebaseAuth;
     private Game game;
     private List<Chat> chats;
+    private List<User> users;
 
     public HomeFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -102,5 +104,36 @@ public class HomeFirebase {
     public void createNewChat(String id, Chat chat) {
         chat.setId(firebaseDatabase.getReference(Constants.CHATS).child(id).push().getKey());
         firebaseDatabase.getReference(Constants.CHATS).child(id).child(chat.getId()).setValue(chat);
+    }
+
+    public List<User> getUsers(String id, GameInterface gameInterface) {
+        users = new ArrayList<>();
+        firebaseDatabase.getReference(Constants.PARTICIPANTS).child(id)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot d : snapshot.getChildren()) {
+                            User user = d.getValue(User.class);
+                            users.add(user);
+                        }
+                        gameInterface.getParticipants(users);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+        return users;
+    }
+
+    public void createNewParticipants(String id, User user) {
+        firebaseDatabase.getReference(Constants.CHATS).child(id).child(user.getId()).setValue(user);
+    }
+
+    public void deleteChat(String id) {
+        firebaseDatabase.getReference(Constants.CHATS).child(id).removeValue();
+    }
+
+    public void deleteParticipants(String id) {
+        firebaseDatabase.getReference(Constants.PARTICIPANTS).child(id).removeValue();
     }
 }

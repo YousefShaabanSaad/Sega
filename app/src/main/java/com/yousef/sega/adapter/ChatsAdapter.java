@@ -57,7 +57,5 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
             nameChat = itemView.findViewById(R.id.nameChat);
             message = itemView.findViewById(R.id.message);
         }
-
-
     }
 }

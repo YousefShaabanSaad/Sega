@@ -1,7 +1,7 @@
 package com.yousef.sega.model;
 
 public class Game {
-    private String Id, IdPlayer, Player1, Player2, Status, React, IdReact;
+    private String Id, IdOwner,  IdPlayer, Player1, Player2, Status, React, IdReact;
     private int Number;
 
     public String getId() {
@@ -10,6 +10,14 @@ public class Game {
 
     public void setId(String id) {
         Id = id;
+    }
+
+    public String getIdOwner() {
+        return IdOwner;
+    }
+
+    public void setIdOwner(String idOwner) {
+        IdOwner = idOwner;
     }
 
     public String getIdPlayer() {

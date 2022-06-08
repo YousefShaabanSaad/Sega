@@ -27,12 +27,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yousef.sega.R;
 import com.yousef.sega.adapter.ChatsAdapter;
+import com.yousef.sega.adapter.ParticipantsAdapter;
 import com.yousef.sega.database.Repository;
 import com.yousef.sega.databinding.ActivityPlayWithFriendOnlineBinding;
 import com.yousef.sega.listener.GameInterface;
 import com.yousef.sega.model.Chat;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
+import com.yousef.sega.model.User;
+
 import java.util.List;
 
 public class PlayWithFriendOnlineActivity extends AppCompatActivity implements GameInterface {
@@ -49,6 +52,8 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
     private String delete;
     private List<Chat> chats;
     private ChatsAdapter chatsAdapter;
+    private List<User> users;
+    private ParticipantsAdapter participantsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +69,7 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
         link = "https://yousef.sega.com/";
         Uri uri = getIntent().getData();
         repository = new Repository();
-        String id = "";
+        String id;
         if(uri != null){
             //get id
             String path = uri.getPath();
@@ -74,6 +79,15 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                 repository.updateGame(id, Constants.PLAYER2, repository.getUser().getUid());
                 repository.updateGame(id, Constants.STATUS, Constants.PLAY);
             }
+
+            chats = repository.getChats(game.getId(), this);
+            chatsAdapter =new ChatsAdapter(getApplicationContext(), chats);
+
+            User user = new User();
+            user.setId(repository.getUser().getUid());
+            user.setName(repository.getUser().getDisplayName());
+            user.setProfile(repository.getUser().getPhotoUrl().toString());
+            repository.createNewParticipants(game.getId(),user);
         }
         else {
             Game game1 = new Game();
@@ -88,6 +102,14 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
 
             chats = repository.getChats(game.getId(), this);
             chatsAdapter =new ChatsAdapter(getApplicationContext(), chats);
+
+            User user = new User();
+            user.setId(repository.getUser().getUid());
+            user.setName(repository.getUser().getDisplayName());
+            user.setProfile(repository.getUser().getPhotoUrl().toString());
+            repository.createNewParticipants(game.getId(),user);
+            users = repository.getUsers(game.getId(),this);
+            participantsAdapter = new ParticipantsAdapter(getApplicationContext(), users, game);
         }
         link+= id;
 
@@ -512,10 +534,10 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
 
 
     private void showChat() {
-        BottomSheetDialog bottomSheetDialogSoura=new BottomSheetDialog( this,R.style.bottomTheme );
+        BottomSheetDialog bottomSheetDialog=new BottomSheetDialog( this,R.style.bottomTheme );
         View bottom= LayoutInflater.from( this ).inflate( R.layout.bottom_about_chats,findViewById( R.id.containerParticipants ) );
-        bottomSheetDialogSoura.setContentView( bottom );
-        RecyclerView recyclerView =bottom.findViewById(R.id.participantsRecyclerView);
+        bottomSheetDialog.setContentView( bottom );
+        RecyclerView recyclerView =bottom.findViewById(R.id.chatsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(chatsAdapter);
 
@@ -536,17 +558,17 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                 }
             }
         });
-
+        bottomSheetDialog.show();
     }
 
     private void showParticipants() {
-        BottomSheetDialog bottomSheetDialogSoura=new BottomSheetDialog( this,R.style.bottomTheme );
-        View bottom= LayoutInflater.from( this ).inflate( R.layout.item_chat,findViewById( R.id.containerParticipants ) );
-        bottomSheetDialogSoura.setContentView( bottom );
-
+        BottomSheetDialog bottomSheetDialog=new BottomSheetDialog( this,R.style.bottomTheme );
+        View bottom= LayoutInflater.from( this ).inflate( R.layout.bottom_about_participants,findViewById( R.id.containerParticipants ) );
+        bottomSheetDialog.setContentView( bottom );
         RecyclerView recyclerView =bottom.findViewById(R.id.participantsRecyclerView);
-
-        bottomSheetDialogSoura.show();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(chatsAdapter);
+        bottomSheetDialog.show();
     }
 
 
@@ -558,12 +580,27 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
         chatsAdapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void getParticipants(List<User> participants) {
+        users.clear();
+        users = participants;
+        participantsAdapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(delete.equals(""))
-            repository.updateGame(game.getId(), Constants.STATUS, Constants.FINISH);
-        else
-            repository.deleteGame(game.getId());
+        if(delete.equals("")) {
+            if(repository.getUser().getUid().equals(game.getPlayer1()) || repository.getUser().getUid().equals(game.getPlayer1()))
+                repository.updateGame(game.getId(), Constants.STATUS, Constants.FINISH);
+        }
+        else {
+            if(users.size()==1) {
+                repository.deleteGame(game.getId());
+                repository.deleteChat(game.getId());
+                repository.deleteParticipants(game.getId());
+            }
+        }
     }
 }
