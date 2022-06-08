@@ -29,10 +29,10 @@ public class VerificationActivity extends AppCompatActivity {
         Repository repository = new Repository();
         repository.createEmail(user.getEmail(), user.getPassword(), getApplicationContext());
 
-        binding.yes.setOnClickListener(new View.OnClickListener() {
+        binding.verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(repository.isVerify()){
+                if(repository.getUser().isEmailVerified()){
                     Intent intent = new Intent(VerificationActivity.this, PhotoActivity.class);
                     intent.putExtra(Constants.USER, user);
                     startActivity(intent);
@@ -40,13 +40,6 @@ public class VerificationActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(getApplicationContext(), getString(R.string.goToEmail), Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-
-        binding.no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), getString(R.string.goToEmail), Toast.LENGTH_LONG).show();
             }
         });
 

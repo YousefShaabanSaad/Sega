@@ -64,5 +64,6 @@
     <string name="write">Enter message</string>
     <string name="play">Play</string>
     <string name="segaOwner">Sega Owner</string>
+    <string name="verify3">Verify</string>
 
 </resources>

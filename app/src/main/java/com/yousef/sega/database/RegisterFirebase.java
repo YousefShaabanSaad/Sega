@@ -71,26 +71,25 @@ public class RegisterFirebase {
 
 
     public void createEmail(String email,String password, Context context){
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                sendLink(context);
-            }
-        });
+        if(getUser() != null){
+            sendLink(context);
+        }else {
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    sendLink(context);
+                }
+            });
+        }
     }
 
     private void sendLink(Context context) {
-        //Toast.makeText(context, getUser().getEmail(), Toast.LENGTH_LONG).show();
         getUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(context, context.getString(R.string.checkEmail), Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public boolean isVerify(){
-        return getUser().isEmailVerified();
     }
 
     public void signUp(User user , ProgressDialog dialog, RegisterInterface registerInterface) {

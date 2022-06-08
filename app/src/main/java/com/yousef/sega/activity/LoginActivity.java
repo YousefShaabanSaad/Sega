@@ -41,7 +41,12 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
                 else {
                     email +="@gmail.com";
                     Toast.makeText(LoginActivity.this, email, Toast.LENGTH_SHORT).show();
-                    repository.signIn(email, password, LoginActivity.this);
+
+                    try {
+                        repository.signIn(email, repository.encryption(password), LoginActivity.this);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -78,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
 
     @Override
     public void onFailure(Exception e) {
+        assert e.getMessage() !=null;
         if(e.getMessage().contains("There is no user")) {
             binding.email.setError(getString(R.string.emailError));
             binding.email.requestFocus();

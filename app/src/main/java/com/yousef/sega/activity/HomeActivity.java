@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
     private Repository repository;
     private ProgressDialog progressDialog;
+    private boolean isExit=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,14 +124,16 @@ public class HomeActivity extends AppCompatActivity {
         progressDialog.setTitle(getString(R.string.signOutLoading));
         progressDialog.create();
         progressDialog.show();
-
+        repository.setStatus(repository.getUser().getUid(), Constants.OFFLINE);
         handler.postDelayed(runnable,1000);
+        isExit = false;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        repository.setStatus(repository.getUser().getUid(), Constants.OFFLINE);
+        if(isExit)
+            repository.setStatus(repository.getUser().getUid(), Constants.OFFLINE);
     }
 
 

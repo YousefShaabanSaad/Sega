@@ -3,11 +3,9 @@ package com.yousef.sega.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.yousef.sega.R;
+import com.yousef.sega.database.Repository;
 import com.yousef.sega.databinding.ActivityRegistrationBinding;
 import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.User;
@@ -15,11 +13,14 @@ import com.yousef.sega.model.User;
 public class RegistrationActivity extends AppCompatActivity {
 
     ActivityRegistrationBinding binding;
+    private Repository repository;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        repository = new Repository();
 
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +60,11 @@ public class RegistrationActivity extends AppCompatActivity {
                     User user=new User();
                     user.setName(name);
                     user.setEmail(email);
-                    user.setPassword(password);
+                    try {
+                        user.setPassword(repository.encryption(password));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     user.setStatus(Constants.ONLINE);
                     Intent intent = new Intent(RegistrationActivity.this, VerificationActivity.class);
                     intent.putExtra(Constants.USER, user);

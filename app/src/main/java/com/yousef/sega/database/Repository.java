@@ -2,40 +2,24 @@ package com.yousef.sega.database;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.UploadTask;
-import com.yousef.sega.R;
 import com.yousef.sega.listener.GameInterface;
 import com.yousef.sega.listener.LoginInterface;
 import com.yousef.sega.listener.RegisterInterface;
 import com.yousef.sega.model.Chat;
-import com.yousef.sega.model.Constants;
 import com.yousef.sega.model.Game;
 import com.yousef.sega.model.User;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Repository {
 
     private final RegisterFirebase registerFirebase;
     private final HomeFirebase homeFirebase;
+    public final CommonFunction commonFunction;
     public Repository(){
         registerFirebase = new RegisterFirebase();
         homeFirebase = new HomeFirebase();
+        commonFunction = new CommonFunction();
     }
 
     public FirebaseUser getUser(){
@@ -52,10 +36,6 @@ public class Repository {
 
     public void createEmail(String email,String password, Context context){
        registerFirebase.createEmail(email, password, context);
-    }
-
-    public boolean isVerify(){
-        return registerFirebase.isVerify();
     }
 
     public void signUp(User user , ProgressDialog dialog, RegisterInterface registerInterface) {
@@ -117,5 +97,17 @@ public class Repository {
 
     public void deleteOneParticipant(String id, String idUser) {
         homeFirebase.deleteOneParticipant(id, idUser);
+    }
+
+
+
+
+    //CommonFunction
+    public String encryption(String text) throws Exception {
+        return commonFunction.encryption(text);
+    }
+
+    public String decryption(String text) throws Exception{
+        return commonFunction.decryption(text);
     }
 }
