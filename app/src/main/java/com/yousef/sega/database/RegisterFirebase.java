@@ -80,6 +80,7 @@ public class RegisterFirebase {
     }
 
     private void sendLink(Context context) {
+        //Toast.makeText(context, getUser().getEmail(), Toast.LENGTH_LONG).show();
         getUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -147,5 +148,10 @@ public class RegisterFirebase {
 
     private void deleteImageLevel(String child, String child2, String child3){
         firebaseStorage.getReference(child).child(child2).child(child3).delete();
+    }
+
+    public void signOut(ProgressDialog progressDialog){
+        firebaseAuth.signOut();
+        progressDialog.dismiss();
     }
 }

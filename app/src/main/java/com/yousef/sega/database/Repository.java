@@ -62,7 +62,15 @@ public class Repository {
         registerFirebase.signUp(user, dialog, registerInterface);
     }
 
+    public void signOut(ProgressDialog progressDialog){
+        registerFirebase.signOut(progressDialog);
+    }
+
     //Home
+    public void setStatus(String idUser, String value) {
+        homeFirebase.setStatus(idUser, value);
+    }
+
     public String createNewGame(Game game, GameInterface gameInterface){
         return homeFirebase.createNewGame(game, gameInterface);
     }

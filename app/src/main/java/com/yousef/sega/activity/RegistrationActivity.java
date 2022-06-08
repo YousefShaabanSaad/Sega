@@ -54,6 +54,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     binding.confirmPassword.requestFocus();
                 }
                 else {
+                    email+="@gmail.com";
+                    //Toast.makeText(RegistrationActivity.this, email, Toast.LENGTH_SHORT).show();
                     User user=new User();
                     user.setName(name);
                     user.setEmail(email);

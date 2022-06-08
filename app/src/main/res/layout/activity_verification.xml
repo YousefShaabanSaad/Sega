@@ -37,7 +37,6 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20ssp"
-                android:textStyle="bold"
                 tools:text="@string/verify" />
 
             <LinearLayout

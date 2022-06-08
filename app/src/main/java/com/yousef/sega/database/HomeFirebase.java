@@ -40,6 +40,12 @@ public class HomeFirebase {
         firebaseStorage = FirebaseStorage.getInstance();
     }
 
+
+
+    public void setStatus(String idUser, String value) {
+        firebaseFirestore.collection(Constants.USERS).document(idUser).update(Constants.STATUS, value);
+    }
+
     public String createNewGame(Game game, GameInterface gameInterface) {
         String id = firebaseDatabase.getReference(Constants.GAMES).push().getKey();
         game.setId(id);
@@ -95,7 +101,6 @@ public class HomeFirebase {
 
     public List<Chat> getChats(String id, GameInterface gameInterface) {
         chats = new ArrayList<>();
-        //Log.d("JOOOOOOOOOOOOOOOOO",chats.size()+"");
         firebaseDatabase.getReference(Constants.CHATS).child(id)
                 .addValueEventListener(new ValueEventListener() {
                     @Override

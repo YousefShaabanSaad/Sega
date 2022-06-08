@@ -23,11 +23,11 @@ public class VerificationActivity extends AppCompatActivity {
 
         User user = (User) getIntent().getExtras().getSerializable(Constants.USER);
 
-        String text = getString(R.string.verify) +getEmailHide(user.getEmail())+ getString(R.string.verify2);
+        String text = getString(R.string.verify) +" "+getEmailHide(user.getEmail())+" "+ getString(R.string.verify2);
         binding.questionVerify.setText(text);
 
         Repository repository = new Repository();
-        repository.createEmail(user.getEmail(), user.getEmail(), getApplicationContext());
+        repository.createEmail(user.getEmail(), user.getPassword(), getApplicationContext());
 
         binding.yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,10 @@ public class VerificationActivity extends AppCompatActivity {
     }
 
     private String getEmailHide(String email){
-        String newEmail= String.valueOf(email.charAt(0)+email.charAt(1)+email.charAt(2));
+        String newEmail= "";
+        newEmail+=email.charAt(0);
+        newEmail+=email.charAt(1);
+        newEmail+=email.charAt(2);
         for(int i=3; i<email.length(); i++){
             if(email.charAt(i)=='@'){
                 newEmail+="@gmail.com";
@@ -68,6 +71,6 @@ public class VerificationActivity extends AppCompatActivity {
             else
                 newEmail+="*";
         }
-        return null;
+        return newEmail;
     }
 }

@@ -62,107 +62,43 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
 
         init();
 
-        binding.num1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(1);
-            }
-        });
+        binding.num1.setOnClickListener(view -> checkPlayer(1));
 
-        binding.num2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(2);
-            }
-        });
+        binding.num2.setOnClickListener(view -> checkPlayer(2));
 
-        binding.num3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(3);
-            }
-        });
+        binding.num3.setOnClickListener(view -> checkPlayer(3));
 
-        binding.num4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(4);
-            }
-        });
+        binding.num4.setOnClickListener(view -> checkPlayer(4));
 
-        binding.num5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(5);
-            }
-        });
+        binding.num5.setOnClickListener(view -> checkPlayer(5));
 
-        binding.num6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(6);
-            }
-        });
+        binding.num6.setOnClickListener(view -> checkPlayer(6));
 
-        binding.num7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(7);
-            }
-        });
+        binding.num7.setOnClickListener(view -> checkPlayer(7));
 
-        binding.num8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(8);
-            }
-        });
+        binding.num8.setOnClickListener(view -> checkPlayer(8));
 
-        binding.num9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlayer(9);
-            }
-        });
+        binding.num9.setOnClickListener(view -> checkPlayer(9));
 
 
-        binding.love.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                repository.updateGame(game.getId(), Constants.REACT, Constants.LOVE);
-                repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
-            }
+        binding.love.setOnClickListener(view -> {
+            repository.updateGame(game.getId(), Constants.REACT, Constants.LOVE);
+            repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
         });
 
-        binding.like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                repository.updateGame(game.getId(), Constants.REACT, Constants.LIKE);
-                repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
-            }
+        binding.like.setOnClickListener(view -> {
+            repository.updateGame(game.getId(), Constants.REACT, Constants.LIKE);
+            repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
         });
 
-        binding.dislike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                repository.updateGame(game.getId(), Constants.REACT, Constants.DISLIKE);
-                repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
-            }
+        binding.dislike.setOnClickListener(view -> {
+            repository.updateGame(game.getId(), Constants.REACT, Constants.DISLIKE);
+            repository.updateGame(game.getId(), Constants.ID_REACT, repository.getUser().getUid());
         });
 
-        binding.chats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showChat();
-            }
-        });
+        binding.chats.setOnClickListener(view -> showChat());
 
-        binding.participants.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showParticipants();
-            }
-        });
+        binding.participants.setOnClickListener(view -> showParticipants());
 
     }
 

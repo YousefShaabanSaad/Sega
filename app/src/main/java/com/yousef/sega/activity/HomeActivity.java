@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.yousef.sega.R;
 import com.yousef.sega.database.Repository;
 import com.yousef.sega.databinding.ActivityHomeBinding;
+import com.yousef.sega.model.Constants;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
@@ -29,6 +31,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
+    private Repository repository;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +63,15 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Repository repository = new Repository();
+        repository = new Repository();
 
-//        circleImageView.setImageURI(repository.getUser().getPhotoUrl());
-//        name.setText(repository.getUser().getDisplayName());
-//        email.setText(repository.getUser().getEmail());
+        circleImageView.setImageURI(repository.getUser().getPhotoUrl());
+        name.setText(repository.getUser().getDisplayName());
+        email.setText(repository.getUser().getEmail());
 
-        //repository.setStatus(Constants.PATIENT, Constants.ONLINE);
+        repository.setStatus(repository.getUser().getUid(), Constants.ONLINE);
+
+        progressDialog = new ProgressDialog(HomeActivity.this);
     }
 
 
@@ -101,20 +107,30 @@ public class HomeActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
+    private final Runnable runnable=new Runnable() {
+        @Override
+        public void run() {
+            repository.signOut(progressDialog);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    };
+    private final Handler handler=new Handler();
 
     private void exitDialog() {
-        ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
         progressDialog.setTitle(getString(R.string.signOut));
         progressDialog.setTitle(getString(R.string.signOutLoading));
         progressDialog.create();
         progressDialog.show();
-        //repository.signOut(progressDialog);
+
+        handler.postDelayed(runnable,1000);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //repository.setStatus(Constants.PATIENT, Constants.OFFLINE);
+        repository.setStatus(repository.getUser().getUid(), Constants.OFFLINE);
     }
 
 
