@@ -8,10 +8,9 @@
     android:layout_margin="@dimen/_5sdp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageChat"
+        android:id="@+id/profileChat"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
-        android:background="?selectableItemBackground"
         android:src="@drawable/profile"/>
 
     <LinearLayout

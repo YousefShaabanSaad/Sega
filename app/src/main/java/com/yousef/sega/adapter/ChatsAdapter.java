@@ -6,16 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.yousef.sega.R;
 import com.yousef.sega.model.Chat;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> {
@@ -30,7 +26,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.bottom_about_chats, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_chat, parent, false);
         return new ViewHolder(view);
     }
 
@@ -53,7 +49,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
         private final TextView nameChat, message;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageChat = itemView.findViewById(R.id.imageChat);
+            imageChat = itemView.findViewById(R.id.profileChat);
             nameChat = itemView.findViewById(R.id.nameChat);
             message = itemView.findViewById(R.id.message);
         }

@@ -62,11 +62,9 @@ public class Repository {
         registerFirebase.signUp(user, dialog, registerInterface);
     }
 
-
     //Home
-
-    public String createNewGame(Game game){
-        return homeFirebase.createNewGame(game);
+    public String createNewGame(Game game, GameInterface gameInterface){
+        return homeFirebase.createNewGame(game, gameInterface);
     }
 
     public void updateGame(String id, String key, String value){
@@ -93,6 +91,10 @@ public class Repository {
         homeFirebase.createNewChat(id, chat);
     }
 
+    public void deleteChat(String id) {
+        homeFirebase.deleteChat(id);
+    }
+
     public List<User> getUsers(String id, GameInterface gameInterface) {
         return homeFirebase.getUsers(id, gameInterface);
     }
@@ -101,11 +103,11 @@ public class Repository {
         homeFirebase.createNewParticipants(id, user);
     }
 
-    public void deleteChat(String id) {
-        homeFirebase.deleteChat(id);
-    }
-
     public void deleteParticipants(String id) {
         homeFirebase.deleteParticipants(id);
+    }
+
+    public void deleteOneParticipant(String id, String idUser) {
+        homeFirebase.deleteOneParticipant(id, idUser);
     }
 }

@@ -80,36 +80,37 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                 repository.updateGame(id, Constants.STATUS, Constants.PLAY);
             }
 
-            chats = repository.getChats(game.getId(), this);
-            chatsAdapter =new ChatsAdapter(getApplicationContext(), chats);
-
             User user = new User();
             user.setId(repository.getUser().getUid());
             user.setName(repository.getUser().getDisplayName());
             user.setProfile(repository.getUser().getPhotoUrl().toString());
-            repository.createNewParticipants(game.getId(),user);
+            repository.createNewParticipants(id,user);
         }
         else {
             Game game1 = new Game();
             game1.setIdPlayer(repository.getUser().getUid());
+            game1.setIdOwner(repository.getUser().getUid());
+            game1.setIdReact("");
             game1.setPlayer1(repository.getUser().getUid());
             game1.setPlayer2("");
             game1.setStatus(Constants.WAITING);
-            game1.setNumber(0);
+            game1.setNumber(-1);
             game1.setReact("");
-            id = repository.createNewGame(game1);
-            game = repository.getGame(id, this);
-
-            chats = repository.getChats(game.getId(), this);
-            chatsAdapter =new ChatsAdapter(getApplicationContext(), chats);
+            id = repository.createNewGame(game1, this);
 
             User user = new User();
             user.setId(repository.getUser().getUid());
             user.setName(repository.getUser().getDisplayName());
-            user.setProfile(repository.getUser().getPhotoUrl().toString());
-            repository.createNewParticipants(game.getId(),user);
-            users = repository.getUsers(game.getId(),this);
-            participantsAdapter = new ParticipantsAdapter(getApplicationContext(), users, game);
+          //  user.setProfile(repository.getUser().getPhotoUrl().toString());
+            user.setProfile("ht");
+            repository.createNewParticipants(id,user);
+
+            Chat chat = new Chat();
+            chat.setProfile("ht");
+            chat.setName("Sega");
+            //  user.setProfile(repository.getUser().getPhotoUrl().toString());
+            chat.setMessage("أهلا بكم في لعبة سيجا");
+            repository.createNewChat(id,chat);
         }
         link+= id;
 
@@ -250,21 +251,17 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
             if(!isClick){
                 if (game.getIdPlayer().equals(game.getPlayer1()) && players[numOfButton - 1].equals(Constants.Y)) {
                     repository.updatePlay(game.getId(), numOfButton);
-                    isClick = true;
                 }
                 else if (game.getIdPlayer().equals(game.getPlayer2()) && players[numOfButton - 1].equals(Constants.N)) {
                     repository.updatePlay(game.getId(), numOfButton);
-                    isClick = true;
                 }
             }
             else{
                 if (game.getIdPlayer().equals(game.getPlayer1()) && players[numOfButton - 1].equals("")) {
                     repository.updatePlay(game.getId(), numOfButton);
-                    isClick = false;
                 }
                 else if (game.getIdPlayer().equals(game.getPlayer2()) && players[numOfButton - 1].equals("")) {
                     repository.updatePlay(game.getId(), numOfButton);
-                    isClick = false;
                 }
             }
         }
@@ -273,7 +270,7 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
     @Override
     public void getGame(Game thisGame) {
         game = thisGame;
-        if(game.getNumber()==0){
+        if(game.getNumber()==0 || game.getNumber()==-1){
             setImage(1, R.drawable.y);
             setImage(2, R.drawable.y);
             setImage(3, R.drawable.y);
@@ -297,7 +294,8 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
             players = new String[]{Constants.Y, Constants.Y, Constants.Y, "", "", "", Constants.N, Constants.N, Constants.N};
             isClick = false;
             move= new int[10];
-            dialog.dismiss();
+            if(game.getNumber()==0)
+                dialog.dismiss();
         }
         else{
             if(!isClick){
@@ -315,6 +313,7 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                     move[8]=8;
                 else if(game.getNumber()==9)
                     move[9]=9;
+                isClick = true;
             }
             else {
               if (game.getIdPlayer().equals(game.getPlayer1())) {
@@ -329,7 +328,8 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                     repository.updateGame(game.getId(), Constants.ID_PLAYER, game.getPlayer1());
                   binding.y.setBackgroundResource(R.drawable.item_bg2);
               }
-              checkWin();
+                isClick = false;
+                checkWin();
             }
         }
 
@@ -364,6 +364,7 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                 binding.num7.setClickable(true);
                 binding.num8.setClickable(true);
                 binding.num9.setClickable(true);
+                Toast.makeText(this, "يمكنك اللعب الآن", Toast.LENGTH_SHORT).show();
                 break;
 
             case Constants.WAITING:
@@ -376,6 +377,7 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                 binding.num7.setClickable(false);
                 binding.num8.setClickable(false);
                 binding.num9.setClickable(false);
+                Toast.makeText(this, "لا يمكنك اللعب الآن", Toast.LENGTH_SHORT).show();
                 break;
 
             case Constants.FINISH:
@@ -538,6 +540,8 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
         View bottom= LayoutInflater.from( this ).inflate( R.layout.bottom_about_chats,findViewById( R.id.containerParticipants ) );
         bottomSheetDialog.setContentView( bottom );
         RecyclerView recyclerView =bottom.findViewById(R.id.chatsRecyclerView);
+        chats = repository.getChats(game.getId(), this);
+        chatsAdapter =new ChatsAdapter(getApplicationContext(), chats);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(chatsAdapter);
 
@@ -551,7 +555,8 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
                 else {
                     Chat chat = new Chat();
                     chat.setName(repository.getUser().getDisplayName());
-                    chat.setProfile(repository.getUser().getPhotoUrl().toString());
+                    //chat.setProfile(repository.getUser().getPhotoUrl().toString());
+                    chat.setProfile("hh");
                     chat.setMessage(message.getText().toString());
                     repository.createNewChat(game.getId(), chat);
                     message.setText("");
@@ -566,8 +571,10 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
         View bottom= LayoutInflater.from( this ).inflate( R.layout.bottom_about_participants,findViewById( R.id.containerParticipants ) );
         bottomSheetDialog.setContentView( bottom );
         RecyclerView recyclerView =bottom.findViewById(R.id.participantsRecyclerView);
+        users = repository.getUsers(game.getId(),this);
+        participantsAdapter = new ParticipantsAdapter(getApplicationContext(), users, game);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setAdapter(chatsAdapter);
+        recyclerView.setAdapter(participantsAdapter);
         bottomSheetDialog.show();
     }
 
@@ -575,7 +582,6 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void getChats(List<Chat> chats1) {
-        chats.clear();
         chats = chats1;
         chatsAdapter.notifyDataSetChanged();
     }
@@ -583,7 +589,7 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void getParticipants(List<User> participants) {
-        users.clear();
+//        users.clear();
         users = participants;
         participantsAdapter.notifyDataSetChanged();
     }
@@ -592,8 +598,10 @@ public class PlayWithFriendOnlineActivity extends AppCompatActivity implements G
     protected void onDestroy() {
         super.onDestroy();
         if(delete.equals("")) {
-            if(repository.getUser().getUid().equals(game.getPlayer1()) || repository.getUser().getUid().equals(game.getPlayer1()))
+            if(repository.getUser().getUid().equals(game.getPlayer1()) || repository.getUser().getUid().equals(game.getPlayer1())) {
                 repository.updateGame(game.getId(), Constants.STATUS, Constants.FINISH);
+                repository.deleteOneParticipant(game.getId(),repository.getUser().getUid());
+            }
         }
         else {
             if(users.size()==1) {

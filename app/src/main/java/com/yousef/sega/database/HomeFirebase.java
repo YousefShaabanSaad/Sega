@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,10 +40,15 @@ public class HomeFirebase {
         firebaseStorage = FirebaseStorage.getInstance();
     }
 
-    public String createNewGame(Game game) {
+    public String createNewGame(Game game, GameInterface gameInterface) {
         String id = firebaseDatabase.getReference(Constants.GAMES).push().getKey();
         game.setId(id);
-        firebaseDatabase.getReference(Constants.GAMES).child(game.getId()).setValue(game);
+        firebaseDatabase.getReference(Constants.GAMES).child(game.getId()).setValue(game).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                getGame(id, gameInterface);
+            }
+        });
         return id;
     }
 
@@ -58,10 +64,16 @@ public class HomeFirebase {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot d : snapshot.getChildren()) {
-                            game = d.getValue(Game.class);
-                            gameInterface.getGame(game);
-                        }
+                        game.setId(snapshot.child(Constants.ID).getValue(String.class));
+                        game.setIdPlayer(snapshot.child(Constants.ID_PLAYER).getValue(String.class));
+                        game.setPlayer1(snapshot.child(Constants.PLAYER1).getValue(String.class));
+                        game.setIdOwner(snapshot.child(Constants.ID_OWNER).getValue(String.class));
+                        game.setPlayer2(snapshot.child(Constants.PLAYER2).getValue(String.class));
+                        game.setIdReact(snapshot.child(Constants.ID_REACT).getValue(String.class));
+                        game.setReact(snapshot.child(Constants.REACT).getValue(String.class));
+                        game.setNumber(snapshot.child(Constants.NUMBER).getValue(int.class));
+                        game.setStatus(snapshot.child(Constants.STATUS).getValue(String.class));
+                        gameInterface.getGame(game);
                     }
 
                     @Override
@@ -83,6 +95,8 @@ public class HomeFirebase {
 
     public List<Chat> getChats(String id, GameInterface gameInterface) {
         chats = new ArrayList<>();
+        chats.clear();
+        //Log.d("JOOOOOOOOOOOOOOOOO",chats.size()+"");
         firebaseDatabase.getReference(Constants.CHATS).child(id)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -106,6 +120,10 @@ public class HomeFirebase {
         firebaseDatabase.getReference(Constants.CHATS).child(id).child(chat.getId()).setValue(chat);
     }
 
+    public void deleteChat(String id) {
+        firebaseDatabase.getReference(Constants.CHATS).child(id).removeValue();
+    }
+
     public List<User> getUsers(String id, GameInterface gameInterface) {
         users = new ArrayList<>();
         firebaseDatabase.getReference(Constants.PARTICIPANTS).child(id)
@@ -126,14 +144,14 @@ public class HomeFirebase {
     }
 
     public void createNewParticipants(String id, User user) {
-        firebaseDatabase.getReference(Constants.CHATS).child(id).child(user.getId()).setValue(user);
-    }
-
-    public void deleteChat(String id) {
-        firebaseDatabase.getReference(Constants.CHATS).child(id).removeValue();
+        firebaseDatabase.getReference(Constants.PARTICIPANTS).child(id).child(user.getId()).setValue(user);
     }
 
     public void deleteParticipants(String id) {
         firebaseDatabase.getReference(Constants.PARTICIPANTS).child(id).removeValue();
+    }
+
+    public void deleteOneParticipant(String id, String idUser) {
+        firebaseDatabase.getReference(Constants.PARTICIPANTS).child(id).child(idUser).removeValue();
     }
 }
